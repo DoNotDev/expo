@@ -25,6 +25,7 @@ export const BADGE_VARIANT = {
   OUTLINE: 'outline',
 } as const;
 
+/** Badge visual variant type. */
 export type BadgeVariant = (typeof BADGE_VARIANT)[keyof typeof BADGE_VARIANT];
 
 /**

@@ -13,6 +13,7 @@ import { useTranslation } from '@donotdev/core';
 import MultipleAuthProviders from './MultipleAuthProviders';
 import { Dialog } from '../../../atomic';
 
+/** Props for the LoginModal component. */
 export interface LoginModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;

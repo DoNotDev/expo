@@ -1,6 +1,6 @@
 {
   "name": "@donotdev/expo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "private": false,
   "description": "React Native/Expo UI components for DoNotDev framework",
@@ -67,10 +67,10 @@
     "react-native-safe-area-context": "^5.0.0"
   },
   "peerDependencies": {
-    "@donotdev/auth": "^0.1.0",
-    "@donotdev/billing": "^0.1.0",
-    "@donotdev/oauth": "^0.1.0",
-    "@donotdev/ui": "^0.1.0",
+    "@donotdev/auth": "^0.1.1",
+    "@donotdev/billing": "^0.1.1",
+    "@donotdev/oauth": "^0.1.1",
+    "@donotdev/ui": "^0.1.1",
     "@tanstack/react-query": "^5.0.0",
     "firebase": "^11.0.0",
     "react": "^19.2.4",

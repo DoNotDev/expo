@@ -228,13 +228,11 @@ export function useRedirectGuard(
 
   // Determine redirect state
   const redirectState = useMemo(() => {
+    const noAction: RedirectGuardResult = { shouldRedirect: false, redirectTo: null, isChecking: false };
+
     // Only INITIALIZING = still checking. DEGRADED/ERROR/READY = auth resolved
     if (status === FEATURE_STATUS.INITIALIZING) {
-      return {
-        shouldRedirect: false,
-        redirectTo: null,
-        isChecking: true,
-      };
+      return { ...noAction, isChecking: true };
     }
 
     // Custom condition provided
@@ -249,19 +247,13 @@ export function useRedirectGuard(
 
     // Use auth config to determine redirect
     if (auth !== false && auth !== undefined) {
-      if (!can) {
-        return {
-          shouldRedirect: false,
-          redirectTo: null,
-          isChecking: false,
-        };
-      }
+      if (!can) return noAction;
 
       // Check if user can navigate to this route
       if (!can.navigate(auth)) {
         let targetRoute: string | null = null;
 
-        // Authentication failure (not logged in)
+        // Authentication failure (not logged in) → always redirect
         if (typeof auth === 'object' && auth.required && !user) {
           // Check if we have OAuth parameters that need to be preserved
           const hasOAuthParams =
@@ -269,10 +261,11 @@ export function useRedirectGuard(
             location.search.includes('state=') ||
             location.search.includes('error=');
 
+          const authRoute = authConfig.authRoute!;
           if (hasOAuthParams) {
-            targetRoute = `${authConfig.authRoute}${location.search}`;
+            targetRoute = `${authRoute}${location.search}`;
           } else {
-            targetRoute = authConfig.authRoute;
+            targetRoute = authRoute;
           }
         }
         // Authorization failure (wrong role)
@@ -297,11 +290,7 @@ export function useRedirectGuard(
     }
 
     // No redirect needed
-    return {
-      shouldRedirect: false,
-      redirectTo: null,
-      isChecking: false,
-    };
+    return noAction;
   }, [
     auth,
     status,

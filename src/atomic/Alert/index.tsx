@@ -29,6 +29,7 @@ export const ALERT_VARIANT = {
   INFO: 'info',
 } as const;
 
+/** Alert visual variant type. */
 export type AlertVariant = (typeof ALERT_VARIANT)[keyof typeof ALERT_VARIANT];
 
 /**

@@ -20,6 +20,7 @@ import { useAuthSafe } from '../../utils/useAuthSafe';
 
 import type { ViewStyle } from 'react-native';
 
+/** Props for the EntityDisplayRenderer component. */
 export interface EntityDisplayRendererProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {

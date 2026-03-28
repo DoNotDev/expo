@@ -10,7 +10,7 @@
 
 import { View } from 'react-native';
 
-import { handleError } from '@donotdev/core';
+import { handleError, getI18nInstance } from '@donotdev/core';
 import type { FieldType, EntityField } from '@donotdev/core';
 import { translateFieldLabel } from '@donotdev/crud';
 import { getDisplayFormatter } from '@donotdev/crud';
@@ -19,6 +19,7 @@ import { Text, Stack } from '../../atomic';
 
 import type { ReactElement } from 'react';
 
+/** Props for the DisplayFieldRenderer component. */
 export interface DisplayFieldRendererProps<T extends FieldType = FieldType> {
   name: string;
   config: EntityField<T>;
@@ -33,8 +34,14 @@ export function formatValue(
   value: any,
   config: EntityField,
   t: (key: string, options?: Record<string, any>) => string,
-  options?: { compact?: boolean; asString?: boolean }
+  options?: { compact?: boolean; asString?: boolean; locale?: string }
 ): string | ReactElement {
+  // Auto-resolve locale from i18n singleton when not explicitly provided
+  if (options && !options.locale) {
+    options.locale = getI18nInstance()?.language;
+  } else if (!options) {
+    options = { locale: getI18nInstance()?.language };
+  }
   const compact = options?.compact ?? false;
   if (value === null || value === undefined || value === '') {
     return compact ? '—' : <Text variant="muted">—</Text>;

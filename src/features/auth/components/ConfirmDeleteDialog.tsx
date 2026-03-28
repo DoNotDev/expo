@@ -15,6 +15,7 @@ import { useTranslation } from '@donotdev/core';
 
 import { Dialog, Button, Stack, Text, Input } from '../../../atomic';
 
+/** Props for the ConfirmDeleteDialog component. */
 export interface ConfirmDeleteDialogProps {
   /** Whether dialog is open */
   open: boolean;

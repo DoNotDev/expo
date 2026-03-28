@@ -12,6 +12,7 @@ import { View, type ViewStyle } from 'react-native';
 
 import { Text, Button } from '../../../atomic';
 
+/** Props for the OAuthFallback component. */
 export interface OAuthFallbackProps {
   message?: string;
   showConnectButton?: boolean;

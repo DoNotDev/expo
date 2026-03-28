@@ -26,6 +26,7 @@ export const BLOCKQUOTE_VARIANT = {
   TESTIMONIAL: 'testimonial',
 } as const;
 
+/** Blockquote visual variant type. */
 export type BlockquoteVariant =
   (typeof BLOCKQUOTE_VARIANT)[keyof typeof BLOCKQUOTE_VARIANT];
 

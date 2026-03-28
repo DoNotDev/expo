@@ -22,6 +22,7 @@ export const STACK_DIRECTION = {
   COLUMN: 'column',
 } as const;
 
+/** Stack direction type (row or column). */
 export type StackDirection =
   (typeof STACK_DIRECTION)[keyof typeof STACK_DIRECTION];
 
@@ -36,6 +37,7 @@ export const STACK_ALIGN = {
   BASELINE: 'baseline',
 } as const;
 
+/** Stack cross-axis alignment type. */
 export type StackAlign = (typeof STACK_ALIGN)[keyof typeof STACK_ALIGN];
 
 /**
@@ -50,6 +52,7 @@ export const STACK_JUSTIFY = {
   SPACE_EVENLY: 'space-evenly',
 } as const;
 
+/** Stack main-axis justification type. */
 export type StackJustify = (typeof STACK_JUSTIFY)[keyof typeof STACK_JUSTIFY];
 
 /**

@@ -35,6 +35,7 @@ export const BUTTON_VARIANT = {
   LINK: 'link',
 } as const;
 
+/** Button visual variant type. */
 export type ButtonVariant =
   (typeof BUTTON_VARIANT)[keyof typeof BUTTON_VARIANT];
 

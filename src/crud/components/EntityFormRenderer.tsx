@@ -29,6 +29,7 @@ import { useFormStore } from '../stores';
 
 import type { ViewStyle } from 'react-native';
 
+/** Props for the EntityFormRenderer component. */
 export interface EntityFormRendererProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {

@@ -41,7 +41,9 @@ export const TEXT_LEVEL = {
   CAPTION: 'caption',
 } as const;
 
+/** Text typography level type. */
 export type TextLevel = (typeof TEXT_LEVEL)[keyof typeof TEXT_LEVEL];
+/** Text color variant type. */
 export type TextVariant = (typeof TEXT_VARIANT)[keyof typeof TEXT_VARIANT];
 
 /**

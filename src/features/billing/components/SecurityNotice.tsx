@@ -14,6 +14,7 @@ import { Alert } from '../../../atomic';
 
 import type { ViewStyle } from 'react-native';
 
+/** Props for the SecurityNotice component. */
 export interface SecurityNoticeProps {
   /** Whether the notice can be dismissed */
   dismissible?: boolean;

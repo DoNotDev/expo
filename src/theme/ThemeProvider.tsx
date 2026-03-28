@@ -21,6 +21,7 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
+/** Props for the ThemeProvider component. */
 export interface ThemeProviderProps {
   children: ReactNode;
   /**

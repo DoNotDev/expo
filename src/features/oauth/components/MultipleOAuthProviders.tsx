@@ -15,6 +15,7 @@ import { Stack } from '../../../atomic';
 
 import type { ViewStyle } from 'react-native';
 
+/** Props for the MultipleOAuthProviders component. */
 export interface MultipleOAuthProvidersProps {
   /** OAuth providers to display */
   providers?: OAuthPartnerId[];

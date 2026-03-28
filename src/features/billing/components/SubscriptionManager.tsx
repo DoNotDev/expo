@@ -16,6 +16,7 @@ import { Stack, Text, Button, Card } from '../../../atomic';
 
 import type { ViewStyle } from 'react-native';
 
+/** Props for the SubscriptionManager component. */
 export interface SubscriptionManagerProps {
   availablePlans?: Array<{
     id: string;

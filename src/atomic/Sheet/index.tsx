@@ -32,6 +32,7 @@ import type { ReactNode } from 'react';
  */
 export const SHEET_VARIANT = SURFACE_VARIANT;
 
+/** Sheet visual variant type. */
 export type SheetVariant =
   (typeof SURFACE_VARIANT)[keyof typeof SURFACE_VARIANT];
 

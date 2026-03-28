@@ -30,6 +30,7 @@ import type { ReactNode } from 'react';
 /** Auth method type (popup/redirect are web-only; on mobile, always uses system browser) */
 type AuthMethod = 'redirect' | 'popup';
 
+/** Props for the AuthPartnerButton component. */
 export interface AuthPartnerButtonProps {
   partnerId: AuthPartnerId;
   method?: AuthMethod | null;

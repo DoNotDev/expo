@@ -18,6 +18,7 @@ import { useAuthSafe } from '../../../utils/useAuthSafe';
 
 import type { ReactNode, ComponentType } from 'react';
 
+/** Props for the FeatureGuard component. */
 export interface FeatureGuardProps {
   children: ReactNode;
   role?: UserRole | UserRole[];

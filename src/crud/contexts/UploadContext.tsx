@@ -14,6 +14,7 @@ import type { ReactNode } from 'react';
 
 const UploadContext = createContext<string | undefined>(undefined);
 
+/** Props for the UploadProvider component. */
 export interface UploadProviderProps {
   formId?: string;
   children: ReactNode;

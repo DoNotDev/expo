@@ -101,6 +101,7 @@ export function matchesFilter(
   return true;
 }
 
+/** Props for the EntityFilters component. */
 export interface EntityFiltersProps<
   T extends Record<string, any> & { id: string } = Record<string, any> & {
     id: string;

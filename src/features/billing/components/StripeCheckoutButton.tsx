@@ -18,6 +18,7 @@ import { Button, type ButtonProps } from '../../../atomic';
 
 import type { ViewStyle } from 'react-native';
 
+/** Props for the StripeCheckoutButton component. */
 export interface StripeCheckoutButtonProps extends Omit<
   ButtonProps,
   'onPress' | 'children'

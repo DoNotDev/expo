@@ -13,6 +13,7 @@ import { useTranslation } from '@donotdev/core';
 import MultipleOAuthProviders from './MultipleOAuthProviders';
 import { Dialog } from '../../../atomic';
 
+/** Props for the OAuthConnectionModal component. */
 export interface OAuthConnectionModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;

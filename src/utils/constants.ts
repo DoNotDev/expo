@@ -19,6 +19,7 @@ export const THEME_VARIANT = {
   DESTRUCTIVE: 'destructive',
 } as const;
 
+/** Universal theme color variant type. */
 export type ThemeVariant = (typeof THEME_VARIANT)[keyof typeof THEME_VARIANT];
 
 /**
@@ -31,6 +32,7 @@ export const SURFACE_VARIANT = {
   GLASS: 'glass',
 } as const;
 
+/** Surface component variant type (Card, Dialog, Sheet, Alert). */
 export type SurfaceVariant =
   (typeof SURFACE_VARIANT)[keyof typeof SURFACE_VARIANT];
 
@@ -44,6 +46,7 @@ export type SurfaceVariant =
  */
 export const FLOATING_VARIANT = SURFACE_VARIANT;
 
+/** Floating overlay component variant type (Tooltip, Popover, HoverCard). */
 export type FloatingVariant =
   (typeof FLOATING_VARIANT)[keyof typeof FLOATING_VARIANT];
 
@@ -53,4 +56,5 @@ export type FloatingVariant =
  */
 export const CONTROL_VARIANT = THEME_VARIANT;
 
+/** Form control variant type (Checkbox, Switch, Slider, RadioGroup). */
 export type ControlVariant = ThemeVariant;

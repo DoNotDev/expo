@@ -14,8 +14,10 @@ import { formatDate } from '@donotdev/core';
 
 import { Button, Calendar, Sheet, Text, Stack } from '../../atomic';
 
+/** Date range filter value. */
 export type DateFilterValue = { min?: string; max?: string };
 
+/** Props for the DateFilter component. */
 export interface DateFilterProps {
   label: string;
   fieldType: 'date' | 'week' | 'month' | 'year';

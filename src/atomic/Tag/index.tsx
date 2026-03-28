@@ -30,6 +30,7 @@ export const TAG_VARIANT = {
   ACCENT: 'accent',
 } as const;
 
+/** Tag visual variant type. */
 export type TagVariant = (typeof TAG_VARIANT)[keyof typeof TAG_VARIANT];
 
 /**

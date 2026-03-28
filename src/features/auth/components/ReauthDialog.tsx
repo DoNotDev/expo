@@ -13,6 +13,7 @@ import { useTranslation } from '@donotdev/core';
 import MultipleAuthProviders from './MultipleAuthProviders';
 import { Dialog, Button, Stack, Text } from '../../../atomic';
 
+/** Props for the ReauthDialog component. */
 export interface ReauthDialogProps {
   /** Whether dialog is open */
   open: boolean;

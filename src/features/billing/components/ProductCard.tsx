@@ -20,6 +20,7 @@ import {
 import { StripeCheckoutButton } from './StripeCheckoutButton';
 import { Card, Badge, Stack, Text, Button } from '../../../atomic';
 
+/** Props for the ProductCard component. */
 export interface ProductCardProps {
   namespace?: string;
   configKey: string;

@@ -23,6 +23,7 @@ export const SEPARATOR_ORIENTATION = {
   VERTICAL: 'vertical',
 } as const;
 
+/** Separator orientation type (horizontal or vertical). */
 export type SeparatorOrientation =
   (typeof SEPARATOR_ORIENTATION)[keyof typeof SEPARATOR_ORIENTATION];
 

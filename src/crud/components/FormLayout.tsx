@@ -19,6 +19,7 @@ import type { ReactNode } from 'react';
 import type { UseFormReturn, FieldValues } from 'react-hook-form';
 import type { ViewStyle } from 'react-native';
 
+/** Props for the FormLayout component. */
 export interface FormLayoutProps<T extends FieldValues> {
   title: string;
   onSubmit: (data: T) => void | Promise<void>;

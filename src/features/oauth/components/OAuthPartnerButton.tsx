@@ -16,6 +16,7 @@ import { Button } from '../../../atomic';
 import type { ReactNode } from 'react';
 import type { ViewStyle } from 'react-native';
 
+/** Props for the OAuthPartnerButton component. */
 export interface OAuthPartnerButtonProps {
   /** Partner/provider ID (web compat alias: partnerId) */
   partnerId?: OAuthPartnerId;

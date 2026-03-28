@@ -21,6 +21,7 @@ import type { ReactNode } from 'react';
  */
 export const POPOVER_VARIANT = FLOATING_VARIANT;
 
+/** Popover visual variant type. */
 export type PopoverVariant =
   (typeof FLOATING_VARIANT)[keyof typeof FLOATING_VARIANT];
 

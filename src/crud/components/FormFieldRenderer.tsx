@@ -48,6 +48,7 @@ interface ControlledProps<
   error?: never;
 }
 
+/** Props for the FormFieldRenderer component (uncontrolled or controlled). */
 export type FormFieldRendererProps<
   T extends FieldType,
   TFieldValues extends FieldValues = FieldValues,
