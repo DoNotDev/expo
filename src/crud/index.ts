@@ -15,9 +15,6 @@ export * from './components';
 export { UploadProvider, useUploadContext } from './contexts/UploadContext';
 export type { UploadProviderProps } from './contexts/UploadContext';
 
-// Hooks
-export { useUnsavedChangesWarning } from './hooks/useUnsavedChangesWarning';
-
 // Stores
 export * from './stores';
 

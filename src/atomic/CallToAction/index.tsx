@@ -38,6 +38,10 @@ export interface CallToActionProps {
    */
   secondaryAction?: ReactNode;
   /**
+   * Third action button (optional)
+   */
+  thirdAction?: ReactNode;
+  /**
    * Visual tone for background color
    * @default 'default'
    */
@@ -104,6 +108,7 @@ const CallToAction = ({
   subtitle,
   primaryAction,
   secondaryAction,
+  thirdAction,
   tone = 'default',
   children,
   align = 'center',
@@ -147,7 +152,7 @@ const CallToAction = ({
               {subtitle}
             </Text>
           )}
-          {(primaryAction || secondaryAction) && (
+          {(primaryAction || secondaryAction || thirdAction) && (
             <Stack
               direction="row"
               gap={12}
@@ -155,6 +160,7 @@ const CallToAction = ({
             >
               {primaryAction}
               {secondaryAction}
+              {thirdAction}
             </Stack>
           )}
         </Stack>

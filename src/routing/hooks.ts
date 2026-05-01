@@ -228,7 +228,11 @@ export function useRedirectGuard(
 
   // Determine redirect state
   const redirectState = useMemo(() => {
-    const noAction: RedirectGuardResult = { shouldRedirect: false, redirectTo: null, isChecking: false };
+    const noAction: RedirectGuardResult = {
+      shouldRedirect: false,
+      redirectTo: null,
+      isChecking: false,
+    };
 
     // Only INITIALIZING = still checking. DEGRADED/ERROR/READY = auth resolved
     if (status === FEATURE_STATUS.INITIALIZING) {

@@ -11,7 +11,7 @@
 import { useEffect, useState, useMemo } from 'react';
 
 import { useTranslation, isFieldVisible } from '@donotdev/core';
-import type { Entity } from '@donotdev/core';
+import type { AnyEntity } from '@donotdev/core';
 import { useCrud } from '@donotdev/crud';
 
 import { DisplayFieldRenderer } from './DisplayFieldRenderer';
@@ -24,7 +24,7 @@ import type { ViewStyle } from 'react-native';
 export interface EntityDisplayRendererProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {
-  entity: Entity;
+  entity: AnyEntity;
   id: string;
   t?: (key: string, options?: Record<string, unknown>) => string;
   style?: ViewStyle;
@@ -58,7 +58,7 @@ export function EntityDisplayRenderer<
     data: storeData,
     error: storeError,
     isAvailable,
-  } = useCrud<T>(entity);
+  } = useCrud(entity);
   const [isFetching, setIsFetching] = useState(false);
   const [fetchError, setFetchError] = useState<Error | null>(null);
   const [data, setData] = useState<T | null>(null);
@@ -88,7 +88,7 @@ export function EntityDisplayRenderer<
         if (cancelled) return;
         setIsFetching(false);
         if (fetchedData) {
-          setData(fetchedData);
+          setData(fetchedData as T);
           setFetchError(null);
         } else {
           setData(null);
@@ -121,7 +121,7 @@ export function EntityDisplayRenderer<
       if (fieldConfig.visibility === 'hidden') {
         return false;
       }
-      const value = displayData[fieldName as keyof T];
+      const value = (displayData as Record<string, unknown>)[fieldName];
       if (value === null || value === undefined) {
         return false;
       }
@@ -180,7 +180,7 @@ export function EntityDisplayRenderer<
           key={fieldName}
           name={fieldName}
           config={fieldConfig}
-          value={displayData[fieldName as keyof T]}
+          value={(displayData as Record<string, unknown>)[fieldName]}
           t={translate}
         />
       ))}

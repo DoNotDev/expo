@@ -20,7 +20,7 @@ import {
   useCrudList,
   useCrudFilters,
 } from '@donotdev/crud';
-import type { InferEntityData, UseCrudListOptions } from '@donotdev/crud';
+import type { InferEntityData } from '@donotdev/crud';
 
 import { formatValue } from './DisplayFieldRenderer';
 import { EntityFilters, matchesFilter } from './EntityFilters';
@@ -66,17 +66,17 @@ export function EntityList({
     data: listData,
     loading,
     mutate: refreshList,
-  } = useCrudList<EntityData>(entity, {
+  } = useCrudList(entity, {
     pagination,
     ...(queryOptions && { queryOptions }),
     ...(pagination === 'server' && {
       page: currentPage,
       pageSize: serverPageSize,
     }),
-  } as UseCrudListOptions<EntityData>);
+  });
 
   // useCrud -> handles actions (delete)
-  const { delete: deleteItem } = useCrud<EntityData>(entity);
+  const { delete: deleteItem } = useCrud(entity);
 
   const { t: tCrud } = useTranslation('crud');
   const data: EntityData[] = listData?.items || [];

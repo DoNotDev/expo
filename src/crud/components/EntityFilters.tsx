@@ -11,7 +11,7 @@
 import { useMemo } from 'react';
 
 import { useTranslation, handleError } from '@donotdev/core';
-import type { Entity } from '@donotdev/core';
+import type { AnyEntity } from '@donotdev/core';
 import type { FilterState } from '@donotdev/crud';
 import { translateFieldLabel } from '@donotdev/crud';
 import { getFilterType, isFilterable } from '@donotdev/crud';
@@ -107,7 +107,7 @@ export interface EntityFiltersProps<
     id: string;
   },
 > {
-  entity: Entity;
+  entity: AnyEntity;
   data?: T[];
   fieldsToFilter?: string[];
   variant?: 'inline' | 'sidebar';

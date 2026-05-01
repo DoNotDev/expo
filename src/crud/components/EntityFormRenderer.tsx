@@ -24,7 +24,6 @@ import { useNavigate } from '../../routing';
 import { useAuthSafe } from '../../utils/useAuthSafe';
 import { UploadProvider } from '../contexts/UploadContext';
 import { useEntityForm } from '../forms/hooks/useEntityForm';
-import { useUnsavedChangesWarning } from '../hooks/useUnsavedChangesWarning';
 import { useFormStore } from '../stores';
 
 import type { ViewStyle } from 'react-native';
@@ -33,6 +32,12 @@ import type { ViewStyle } from 'react-native';
 export interface EntityFormRendererProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {
+  /**
+   * Explicit form instance key for isolation between records.
+   * When provided, React remounts the form whenever this value changes.
+   * Pass the route ID: `instanceKey={id}`
+   */
+  instanceKey?: string;
   /** Entity definition */
   entity: Entity;
   /** Form submission handler */
@@ -74,10 +79,6 @@ export interface EntityFormRendererProps<
   successPath?: string;
   /** Callback when cancel is clicked (takes precedence over cancelPath) */
   onCancel?: () => void;
-  /** Whether to show unsaved changes warning */
-  warnOnUnsavedChanges?: boolean;
-  /** Custom message for unsaved changes */
-  unsavedChangesMessage?: string;
   /** Whether to hide visibility info */
   hideVisibilityInfo?: boolean;
   /** Test ID for testing */
@@ -85,9 +86,18 @@ export interface EntityFormRendererProps<
 }
 
 /**
- * EntityFormRenderer - Renders a form from entity definition
+ * EntityFormRenderer - public API.
+ * Applies instanceKey as React key on the inner component for clean state isolation
+ * when navigating between entities on the same route (e.g. /cars/:id).
  */
-export function EntityFormRenderer<T extends Record<string, any> = any>({
+export function EntityFormRenderer<T extends Record<string, any> = any>(
+  props: EntityFormRendererProps<T>
+) {
+  const { instanceKey, ...rest } = props;
+  return <EntityFormRendererCore<T> key={instanceKey} {...rest} />;
+}
+
+function EntityFormRendererCore<T extends Record<string, any> = any>({
   entity,
   onSubmit,
   t,
@@ -106,11 +116,9 @@ export function EntityFormRenderer<T extends Record<string, any> = any>({
   cancelPath,
   successPath,
   onCancel,
-  warnOnUnsavedChanges = true,
-  unsavedChangesMessage,
   hideVisibilityInfo = false,
   testID,
-}: EntityFormRendererProps<T>) {
+}: Omit<EntityFormRendererProps<T>, 'instanceKey'>) {
   const navigate = useNavigate();
 
   // Auto-detect role from auth; prop overrides
@@ -131,6 +139,7 @@ export function EntityFormRenderer<T extends Record<string, any> = any>({
     defaultValues,
     viewerRole,
     t: translate,
+    loading,
   });
 
   const {
@@ -140,7 +149,6 @@ export function EntityFormRenderer<T extends Record<string, any> = any>({
     fields: renderableFields,
     formStatus,
     uploadProgress,
-    cleanup,
     isDirty,
     hasUserInteracted,
     resetForm,
@@ -154,10 +162,6 @@ export function EntityFormRenderer<T extends Record<string, any> = any>({
     }
   }, [formId, isDirtyForBlocking]);
 
-  useEffect(() => {
-    return cleanup;
-  }, [cleanup]);
-
   const goBack = useCallback(() => {
     if (cancelPath) {
       navigate(cancelPath);
@@ -165,12 +169,6 @@ export function EntityFormRenderer<T extends Record<string, any> = any>({
       navigate('back');
     }
   }, [navigate, cancelPath]);
-
-  useUnsavedChangesWarning(
-    warnOnUnsavedChanges && isDirtyForBlocking,
-    unsavedChangesMessage,
-    goBack
-  );
 
   // Handle cancel — auto-save ensures draft is persisted, no confirm needed
   const handleCancel = useCallback(() => {
