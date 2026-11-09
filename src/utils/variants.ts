@@ -8,10 +8,9 @@
  * @author AMBROISE PARK Consulting
  */
 
-import { type ViewStyle, type TextStyle } from 'react-native';
+import type { ViewStyle, TextStyle } from 'react-native';
 
 import { THEME_VARIANT, SURFACE_VARIANT } from './constants';
-
 import type { Theme } from '../theme/tokens';
 
 /**

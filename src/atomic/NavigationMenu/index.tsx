@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -19,8 +20,6 @@ import { useTheme } from '../../theme';
 import { mergeStyles } from '../../utils/helpers';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Navigation menu item interface

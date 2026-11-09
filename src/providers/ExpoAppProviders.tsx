@@ -10,6 +10,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { getStorageManager, initializePlatformDetection } from '@donotdev/core';
@@ -17,8 +18,6 @@ import { getStorageManager, initializePlatformDetection } from '@donotdev/core';
 import { AsyncStorageStrategy } from '../storage/AsyncStorageStrategy';
 import { zustandAsyncStorage } from '../storage/zustandAsyncStorage';
 import { ThemeProvider } from '../theme';
-
-import type { ReactNode } from 'react';
 
 /**
  * Query client singleton for Expo apps

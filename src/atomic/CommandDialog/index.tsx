@@ -9,12 +9,11 @@
  */
 
 import { useState, createContext, useContext } from 'react';
+import type { ReactNode } from 'react';
 import { View } from 'react-native';
 
 import Command, { type CommandProps } from '../Command';
 import Dialog from '../Dialog';
-
-import type { ReactNode } from 'react';
 
 /**
  * Command dialog context

@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode, ComponentType } from 'react';
 import { View, type ViewStyle } from 'react-native';
 
 import type { UserRole, SubscriptionTier } from '@donotdev/core';
@@ -15,8 +16,6 @@ import { hasTierAccess } from '@donotdev/core';
 
 import { Stack, Text } from '../../../atomic';
 import { useAuthSafe } from '../../../utils/useAuthSafe';
-
-import type { ReactNode, ComponentType } from 'react';
 
 /** Props for the FeatureGuard component. */
 export interface FeatureGuardProps {

@@ -9,6 +9,7 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -18,8 +19,6 @@ import {
 
 import { THEME_VARIANT } from '../../utils/constants';
 import { mergeStyles } from '../../utils/helpers';
-
-import type { ReactNode } from 'react';
 
 /**
  * Toggle component props interface

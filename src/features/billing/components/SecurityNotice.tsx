@@ -8,11 +8,11 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ViewStyle } from 'react-native';
+
 import { useTranslation } from '@donotdev/core';
 
 import { Alert } from '../../../atomic';
-
-import type { ViewStyle } from 'react-native';
 
 /** Props for the SecurityNotice component. */
 export interface SecurityNoticeProps {

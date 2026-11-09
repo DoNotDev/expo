@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -19,8 +20,6 @@ import { CONTROL_VARIANT } from '../../utils/constants';
 import { mergeStyles } from '../../utils/helpers';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Rating component props interface

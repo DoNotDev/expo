@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -21,8 +22,6 @@ import { mergeStyles } from '../../utils/helpers';
 import { getSurfaceVariants } from '../../utils/variants';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Card variant type

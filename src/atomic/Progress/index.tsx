@@ -8,12 +8,11 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import { View, type ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { mergeStyles } from '../../utils/helpers';
-
-import type { ReactNode } from 'react';
 
 /**
  * Progress component props interface

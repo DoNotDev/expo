@@ -9,6 +9,7 @@
  */
 
 import { useMemo } from 'react';
+import type { ViewStyle } from 'react-native';
 
 import { useTranslation, handleError } from '@donotdev/core';
 import type { AnyEntity } from '@donotdev/core';
@@ -27,8 +28,6 @@ import {
   Stack,
   Text,
 } from '../../atomic';
-
-import type { ViewStyle } from 'react-native';
 
 /**
  * Shared filter utility - checks if an item matches a filter value

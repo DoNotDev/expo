@@ -9,13 +9,12 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { View, TouchableOpacity, type ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { THEME_VARIANT } from '../../utils/constants';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Tab item interface

@@ -8,14 +8,13 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import { View, type ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { THEME_VARIANT } from '../../utils/constants';
 import { mergeStyles } from '../../utils/helpers';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Badge variant constants - THEME_VARIANT + Badge-specific variants

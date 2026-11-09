@@ -10,12 +10,11 @@
 
 import * as DocumentPicker from 'expo-document-picker';
 import { useRef } from 'react';
+import type { ReactNode } from 'react';
 import { TouchableOpacity, StyleSheet, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Button, { type ButtonProps } from '../Button';
-
-import type { ReactNode } from 'react';
 
 /**
  * FileButton component props interface

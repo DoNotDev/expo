@@ -8,12 +8,12 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactElement } from 'react';
+import type { Control, FieldValues } from 'react-hook-form';
+
 import { handleError } from '@donotdev/core';
 import type { EntityField, FieldType, ValueTypeForField } from '@donotdev/core';
 import { getFieldRegistry } from '@donotdev/crud';
-
-import type { ReactElement } from 'react';
-import type { Control, FieldValues } from 'react-hook-form';
 
 // Import built-in field types to ensure registration
 // Note: Field types are auto-registered via @donotdev/crud exports

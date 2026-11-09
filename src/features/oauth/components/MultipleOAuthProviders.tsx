@@ -8,12 +8,12 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ViewStyle } from 'react-native';
+
 import { getEnabledOAuthPartners, type OAuthPartnerId } from '@donotdev/core';
 
 import OAuthPartnerButton from './OAuthPartnerButton';
 import { Stack } from '../../../atomic';
-
-import type { ViewStyle } from 'react-native';
 
 /** Props for the MultipleOAuthProviders component. */
 export interface MultipleOAuthProvidersProps {

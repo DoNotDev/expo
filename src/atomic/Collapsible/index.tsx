@@ -9,6 +9,7 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -19,8 +20,6 @@ import {
 import { mergeStyles } from '../../utils/helpers';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Collapsible component props interface

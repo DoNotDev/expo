@@ -8,12 +8,11 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Separator orientation constants

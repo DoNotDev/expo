@@ -9,6 +9,7 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 
 import { THEME_VARIANT } from '../../utils/constants';
@@ -17,8 +18,6 @@ import Button from '../Button';
 import Card from '../Card';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Stepper step interface

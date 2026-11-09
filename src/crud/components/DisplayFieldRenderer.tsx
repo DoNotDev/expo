@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactElement } from 'react';
 import { View } from 'react-native';
 
 import { handleError, getI18nInstance } from '@donotdev/core';
@@ -16,8 +17,6 @@ import { translateFieldLabel } from '@donotdev/crud';
 import { getDisplayFormatter } from '@donotdev/crud';
 
 import { Text, Stack } from '../../atomic';
-
-import type { ReactElement } from 'react';
 
 /** Props for the DisplayFieldRenderer component. */
 export interface DisplayFieldRendererProps<T extends FieldType = FieldType> {

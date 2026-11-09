@@ -9,6 +9,7 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -21,8 +22,6 @@ import { mergeStyles } from '../../utils/helpers';
 import Separator from '../Separator';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Dropdown menu item data interface

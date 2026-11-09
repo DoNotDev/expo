@@ -9,6 +9,7 @@
  */
 
 import { useState, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -24,8 +25,6 @@ import {
 } from '@donotdev/core';
 
 import { Button, Spinner, Stack, Text } from '../../../atomic';
-
-import type { ReactNode } from 'react';
 
 /** Auth method type (popup/redirect are web-only; on mobile, always uses system browser) */
 type AuthMethod = 'redirect' | 'popup';

@@ -25,9 +25,8 @@ import type { InferEntityData } from '@donotdev/crud';
 import { formatValue } from './DisplayFieldRenderer';
 import { EntityFilters, matchesFilter } from './EntityFilters';
 import { DataTable, Button, Stack, Section, Input } from '../../atomic';
-import { useNavigate } from '../../routing';
-
 import type { TableColumn } from '../../atomic';
+import { useNavigate } from '../../routing';
 
 export type { EntityListProps };
 

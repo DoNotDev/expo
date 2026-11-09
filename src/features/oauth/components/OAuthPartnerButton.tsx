@@ -8,13 +8,13 @@
  * @author AMBROISE PARK Consulting
  */
 
-import { type OAuthPartnerId } from '@donotdev/core';
+import type { ReactNode } from 'react';
+import type { ViewStyle } from 'react-native';
+
+import type { OAuthPartnerId } from '@donotdev/core';
 import { useOAuth } from '@donotdev/oauth';
 
 import { Button } from '../../../atomic';
-
-import type { ReactNode } from 'react';
-import type { ViewStyle } from 'react-native';
 
 /** Props for the OAuthPartnerButton component. */
 export interface OAuthPartnerButtonProps {

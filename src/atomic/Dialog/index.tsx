@@ -9,6 +9,7 @@
  */
 
 import React, { useState, cloneElement, isValidElement } from 'react';
+import type { ReactNode } from 'react';
 import {
   Modal,
   TouchableOpacity,
@@ -21,11 +22,9 @@ import { useTheme } from '../../theme';
 import { SURFACE_VARIANT } from '../../utils/constants';
 import { mergeStyles } from '../../utils/helpers';
 import Button from '../Button';
+import type { ButtonVariant } from '../Button';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ButtonVariant } from '../Button';
-import type { ReactNode } from 'react';
 
 /**
  * Content size type

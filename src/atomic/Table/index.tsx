@@ -9,6 +9,7 @@
  */
 
 import { useState, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import {
   View,
   ScrollView,
@@ -23,8 +24,6 @@ import Input from '../Input';
 import Pagination from '../Pagination';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Table column configuration

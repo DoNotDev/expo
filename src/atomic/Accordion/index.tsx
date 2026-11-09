@@ -9,12 +9,11 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { TouchableOpacity, View, type ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Accordion item interface

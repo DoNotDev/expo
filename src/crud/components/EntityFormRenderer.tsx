@@ -12,6 +12,7 @@
 import { useEffect, useId, useCallback } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { Alert } from 'react-native';
+import type { ViewStyle } from 'react-native';
 
 import { useTranslation } from '@donotdev/core';
 import type { Entity } from '@donotdev/core';
@@ -25,8 +26,6 @@ import { useAuthSafe } from '../../utils/useAuthSafe';
 import { UploadProvider } from '../contexts/UploadContext';
 import { useEntityForm } from '../forms/hooks/useEntityForm';
 import { useFormStore } from '../stores';
-
-import type { ViewStyle } from 'react-native';
 
 /** Props for the EntityFormRenderer component. */
 export interface EntityFormRendererProps<

@@ -9,13 +9,12 @@
  */
 
 import { useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
 import { ScrollView, type ScrollViewProps, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Spinner from '../Spinner';
 import Stack from '../Stack';
-
-import type { ReactNode } from 'react';
 
 /**
  * InfiniteScroll component props interface

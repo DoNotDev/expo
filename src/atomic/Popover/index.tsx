@@ -9,12 +9,11 @@
  */
 
 import React, { useState } from 'react';
+import type { ReactNode } from 'react';
 import { View, TouchableOpacity, type ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { FLOATING_VARIANT } from '../../utils/constants';
-
-import type { ReactNode } from 'react';
 
 /**
  * Popover variant constants

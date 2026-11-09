@@ -10,6 +10,7 @@
  */
 
 import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import {
   View,
   Modal,
@@ -26,8 +27,6 @@ import { useTheme } from '../../theme';
 import { CONTROL_VARIANT } from '../../utils/constants';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 // ---------------------------------------------------------------------------
 // Types

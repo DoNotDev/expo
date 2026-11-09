@@ -9,6 +9,7 @@
  */
 
 import React, { useState } from 'react';
+import type { ReactNode } from 'react';
 import { Modal, TouchableOpacity, View, type ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
@@ -16,8 +17,6 @@ import { mergeStyles } from '../../utils/helpers';
 import Button from '../Button';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * AlertDialog component props interface

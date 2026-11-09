@@ -9,6 +9,7 @@
  */
 
 import { useState, useRef, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import {
   View,
   PanResponder,
@@ -20,8 +21,6 @@ import { useTheme } from '../../theme';
 import { CONTROL_VARIANT } from '../../utils/constants';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Slider component props interface

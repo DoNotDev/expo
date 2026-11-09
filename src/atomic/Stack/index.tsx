@@ -8,11 +8,10 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
-
-import type { ReactNode } from 'react';
 
 /**
  * Stack direction constants

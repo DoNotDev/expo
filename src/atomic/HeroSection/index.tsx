@@ -8,14 +8,13 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Badge from '../Badge';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * HeroSection component props interface

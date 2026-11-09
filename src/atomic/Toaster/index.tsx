@@ -9,6 +9,7 @@
  */
 
 import { useState, useCallback, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { View, TouchableOpacity, type ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
@@ -16,8 +17,6 @@ import { mergeStyles } from '../../utils/helpers';
 import Button from '../Button';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 // ============================================================================
 // MODULE-LEVEL SHARED STATE (singleton pub-sub pattern)

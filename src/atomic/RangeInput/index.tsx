@@ -8,14 +8,13 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Button from '../Button';
 import Input from '../Input';
 import Stack from '../Stack';
-
-import type { ReactNode } from 'react';
 
 /**
  * RangeInput component props interface

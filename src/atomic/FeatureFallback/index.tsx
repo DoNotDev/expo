@@ -9,14 +9,13 @@
  */
 
 import { Component } from 'react';
+import type { ReactNode, ComponentType, ErrorInfo } from 'react';
 import { View, type ViewStyle } from 'react-native';
 
 import Button from '../Button';
 import Card from '../Card';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode, ComponentType, ErrorInfo } from 'react';
 
 /**
  * FeatureFallback component props interface

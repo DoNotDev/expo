@@ -9,14 +9,13 @@
  */
 
 import { Linking } from 'react-native';
+import type { ViewStyle } from 'react-native';
 
 import { useStripeBilling } from '@donotdev/billing';
 import { useTranslation, FEATURE_STATUS } from '@donotdev/core';
 import type { CheckoutMode } from '@donotdev/core';
 
 import { Button, type ButtonProps } from '../../../atomic';
-
-import type { ViewStyle } from 'react-native';
 
 /** Props for the StripeCheckoutButton component. */
 export interface StripeCheckoutButtonProps extends Omit<

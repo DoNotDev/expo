@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import { Text as RNText, StyleSheet, type TextStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
@@ -17,8 +18,6 @@ import {
   getVariantColor,
   getVariantForegroundColor,
 } from '../../utils/theme-helpers';
-
-import type { ReactNode } from 'react';
 
 /**
  * Text variant constants - THEME_VARIANT + CODE (Text-specific)

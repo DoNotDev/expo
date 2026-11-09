@@ -9,7 +9,6 @@
  */
 
 import { createContext, useContext } from 'react';
-
 import type { ReactNode } from 'react';
 
 const UploadContext = createContext<string | undefined>(undefined);

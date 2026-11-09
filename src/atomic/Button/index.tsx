@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import {
   TouchableOpacity,
   ActivityIndicator,
@@ -22,8 +23,6 @@ import { THEME_VARIANT } from '../../utils/constants';
 import { mergeStyles } from '../../utils/helpers';
 import { getButtonVariants, getButtonTextVariants } from '../../utils/variants';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Button variant constants - THEME_VARIANT + Button-specific variants

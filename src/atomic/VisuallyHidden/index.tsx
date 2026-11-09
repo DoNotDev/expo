@@ -8,9 +8,8 @@
  * @author AMBROISE PARK Consulting
  */
 
-import { View, StyleSheet, type ViewProps } from 'react-native';
-
 import type { ReactNode } from 'react';
+import { View, StyleSheet, type ViewProps } from 'react-native';
 
 /**
  * VisuallyHidden component props interface

@@ -7,8 +7,9 @@
  * @author AMBROISE PARK Consulting
  */
 
-import type { Theme } from '../theme/tokens';
 import type { ViewStyle, TextStyle } from 'react-native';
+
+import type { Theme } from '../theme/tokens';
 
 /**
  * Get variant color from theme

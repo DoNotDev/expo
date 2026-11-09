@@ -9,6 +9,7 @@
  */
 
 import React, { useState } from 'react';
+import type { ReactNode } from 'react';
 import {
   Modal,
   TouchableOpacity,
@@ -18,14 +19,12 @@ import {
 } from 'react-native';
 
 import { useTheme } from '../../theme';
+import type { Theme } from '../../theme';
 import { SURFACE_VARIANT } from '../../utils/constants';
 import { mergeStyles } from '../../utils/helpers';
 import Button from '../Button';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { Theme } from '../../theme';
-import type { ReactNode } from 'react';
 
 /**
  * Sheet variant constants

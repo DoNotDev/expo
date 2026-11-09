@@ -9,11 +9,10 @@
  */
 
 import React from 'react';
+import type { ReactNode } from 'react';
 import { View, useWindowDimensions, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
-
-import type { ReactNode } from 'react';
 
 /**
  * Breakpoints matching framework: mobile < 768, tablet < 1024, laptop < 1440, desktop >= 1440

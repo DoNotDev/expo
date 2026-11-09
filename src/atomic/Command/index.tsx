@@ -9,6 +9,7 @@
  */
 
 import { useState, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import {
   View,
   ScrollView,
@@ -22,8 +23,6 @@ import Input from '../Input';
 import Separator from '../Separator';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Command item interface

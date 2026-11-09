@@ -9,13 +9,12 @@
  */
 
 import { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { Image, View, type ViewStyle, type ImageStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { mergeStyles } from '../../utils/helpers';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Avatar component props interface

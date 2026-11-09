@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import {
   TextInput,
   View,
@@ -21,8 +22,6 @@ import { useTheme } from '../../theme';
 import { mergeStyles } from '../../utils/helpers';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Input component props interface

@@ -8,13 +8,13 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ViewStyle } from 'react-native';
+
 import { useAuth } from '@donotdev/auth';
 import { useStripeBilling } from '@donotdev/billing';
 import { useTranslation } from '@donotdev/core';
 
 import { Stack, Text, Button, Card } from '../../../atomic';
-
-import type { ViewStyle } from 'react-native';
 
 /** Props for the SubscriptionManager component. */
 export interface SubscriptionManagerProps {

@@ -9,6 +9,7 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import {
   Modal,
   TouchableOpacity,
@@ -19,8 +20,6 @@ import {
 
 import { mergeStyles } from '../../utils/helpers';
 import Button, { type ButtonProps } from '../Button';
-
-import type { ReactNode } from 'react';
 
 /**
  * PortalButton component props interface

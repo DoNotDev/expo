@@ -8,6 +8,8 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ViewStyle } from 'react-native';
+
 import {
   AUTH_PARTNERS,
   useTranslation,
@@ -16,8 +18,6 @@ import {
 
 import AuthPartnerButton from './AuthPartnerButton';
 import { Stack } from '../../../atomic';
-
-import type { ViewStyle } from 'react-native';
 
 /** Props for the MultipleAuthProviders component. */
 export interface MultipleAuthProvidersProps {

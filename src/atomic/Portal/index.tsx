@@ -8,9 +8,8 @@
  * @author AMBROISE PARK Consulting
  */
 
-import { Modal, type ModalProps } from 'react-native';
-
 import type { ReactNode } from 'react';
+import { Modal, type ModalProps } from 'react-native';
 
 /**
  * Portal component props interface

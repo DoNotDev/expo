@@ -9,6 +9,7 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -18,8 +19,6 @@ import {
 
 import { mergeStyles } from '../../utils/helpers';
 import Popover from '../Popover';
-
-import type { ReactNode } from 'react';
 
 /**
  * HoverCard component props interface

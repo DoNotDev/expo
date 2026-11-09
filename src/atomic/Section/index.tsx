@@ -9,14 +9,13 @@
  */
 
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { View, TouchableOpacity, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Separator from '../Separator';
 import Stack from '../Stack';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * Section component props interface

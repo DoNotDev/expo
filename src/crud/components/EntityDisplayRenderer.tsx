@@ -9,6 +9,7 @@
  */
 
 import { useEffect, useState, useMemo } from 'react';
+import type { ViewStyle } from 'react-native';
 
 import { useTranslation, isFieldVisible } from '@donotdev/core';
 import type { AnyEntity } from '@donotdev/core';
@@ -17,8 +18,6 @@ import { useCrud } from '@donotdev/crud';
 import { DisplayFieldRenderer } from './DisplayFieldRenderer';
 import { Stack, Spinner, Text } from '../../atomic';
 import { useAuthSafe } from '../../utils/useAuthSafe';
-
-import type { ViewStyle } from 'react-native';
 
 /** Props for the EntityDisplayRenderer component. */
 export interface EntityDisplayRendererProps<

@@ -10,13 +10,12 @@
 
 import * as Clipboard from 'expo-clipboard';
 import { useState } from 'react';
-import { type ViewStyle } from 'react-native';
+import type { ReactNode } from 'react';
+import type { ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Button, { type ButtonProps } from '../Button';
 import Text from '../Text';
-
-import type { ReactNode } from 'react';
 
 /**
  * CopyToClipboard component props interface

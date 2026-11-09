@@ -9,9 +9,8 @@
  */
 
 import { Link as ExpoLink, Redirect as ExpoRedirect } from 'expo-router';
-import { TouchableOpacity, type TouchableOpacityProps } from 'react-native';
-
 import type { ReactNode } from 'react';
+import { TouchableOpacity, type TouchableOpacityProps } from 'react-native';
 
 /**
  * Link component for Expo Router

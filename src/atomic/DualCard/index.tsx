@@ -8,6 +8,7 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -21,11 +22,9 @@ import { mergeStyles } from '../../utils/helpers';
 import { getSurfaceVariants } from '../../utils/variants';
 import { renderCardContent, renderCardHeader } from '../Card';
 import Card from '../Card';
+import type { CardContent } from '../Card';
 import Separator from '../Separator';
 import Stack from '../Stack';
-
-import type { CardContent } from '../Card';
-import type { ReactNode } from 'react';
 
 /**
  * DualCard component props interface

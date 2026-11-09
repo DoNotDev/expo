@@ -8,13 +8,12 @@
  * @author AMBROISE PARK Consulting
  */
 
+import type { ReactNode } from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Stack from '../Stack';
 import Toggle from '../Toggle';
-
-import type { ReactNode } from 'react';
 
 /**
  * Toggle option interface
