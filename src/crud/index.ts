@@ -25,6 +25,7 @@ export * from './forms/hooks/useEntityForm';
 export {
   useCrud,
   useCrudList,
+  useCrudDoc,
   useCrudCardList,
   getCrudService,
   useCrudStore,
@@ -39,7 +40,6 @@ export {
   translateLabel,
   registerFieldType,
   getFieldRegistry,
-  registerBuiltinFieldTypes,
   useFileUpload,
   useEntityFavorites,
   useRelatedItems,

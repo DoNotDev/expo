@@ -21,10 +21,8 @@ import { Stack } from '../../../atomic';
 
 /** Props for the MultipleAuthProviders component. */
 export interface MultipleAuthProvidersProps {
-  /** Providers to display (alias: enabledPartners) */
+  /** Providers to display */
   providers?: AuthPartnerId[];
-  /** @deprecated Use providers instead */
-  enabledPartners?: AuthPartnerId[];
   /** Button layout */
   layout?: 'vertical' | 'horizontal' | 'grid';
   /** Whether to show text labels on buttons */
@@ -44,7 +42,6 @@ export interface MultipleAuthProvidersProps {
  */
 function MultipleAuthProviders({
   providers,
-  enabledPartners,
   layout = 'vertical',
   showLabels = true,
   method = 'popup',
@@ -58,7 +55,6 @@ function MultipleAuthProviders({
 
   const partnersToShow: AuthPartnerId[] =
     providers ||
-    enabledPartners ||
     (Object.keys(AUTH_PARTNERS) as AuthPartnerId[]);
 
   return (

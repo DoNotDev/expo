@@ -8,12 +8,12 @@
  * @author AMBROISE PARK Consulting
  */
 
-import { useEffect, useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { ViewStyle } from 'react-native';
 
 import { useTranslation, isFieldVisible } from '@donotdev/core';
 import type { AnyEntity } from '@donotdev/core';
-import { useCrud } from '@donotdev/crud';
+import { useCrudDoc } from '@donotdev/crud';
 
 import { DisplayFieldRenderer } from './DisplayFieldRenderer';
 import { Stack, Spinner, Text } from '../../atomic';
@@ -51,64 +51,19 @@ export function EntityDisplayRenderer<
   // Auto-detect role from auth; prop overrides
   const authRole = useAuthSafe('userRole');
   const viewerRole = viewerRoleProp ?? authRole;
+  // Reactive read: re-renders on every cache write for this document (edits, deletes)
   const {
-    get,
+    data: displayData,
     loading,
-    data: storeData,
-    error: storeError,
-    isAvailable,
-  } = useCrud(entity);
-  const [isFetching, setIsFetching] = useState(false);
-  const [fetchError, setFetchError] = useState<Error | null>(null);
-  const [data, setData] = useState<T | null>(null);
+    error: displayError,
+    notFound,
+  } = useCrudDoc<T>(entity, id);
 
   const { t: tDual } = useTranslation([entity.namespace, 'crud']);
   const { t: tCrud } = useTranslation('crud');
   const translate = t || tDual;
 
-  useEffect(() => {
-    if (!id) {
-      setData(null);
-      setFetchError(null);
-      setIsFetching(false);
-      return;
-    }
-
-    if (!isAvailable || !get) {
-      return;
-    }
-
-    let cancelled = false;
-    setIsFetching(true);
-    setFetchError(null);
-
-    get(id)
-      .then((fetchedData) => {
-        if (cancelled) return;
-        setIsFetching(false);
-        if (fetchedData) {
-          setData(fetchedData as T);
-          setFetchError(null);
-        } else {
-          setData(null);
-          setFetchError(new Error('Entity not found'));
-        }
-      })
-      .catch((err) => {
-        if (cancelled) return;
-        setIsFetching(false);
-        setFetchError(err instanceof Error ? err : new Error(String(err)));
-        setData(null);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [id, get, isAvailable]);
-
-  const displayData = storeData || data;
-  const displayError = storeError || fetchError;
-  const isLoading = loading || isFetching || !id;
+  const isLoading = loading || !id;
 
   const visibleFields = useMemo(() => {
     if (!displayData) return [];
@@ -149,6 +104,9 @@ export function EntityDisplayRenderer<
       </Stack>
     );
   }
+
+  // CRUD unavailable (consent declined / feature absent): nothing will load
+  if (!displayData && !displayError && !notFound) return null;
 
   if (displayError || !displayData) {
     return (

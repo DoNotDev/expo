@@ -20,8 +20,6 @@ import { Button } from '../../../atomic';
 export interface OAuthPartnerButtonProps {
   /** Partner/provider ID (web compat alias: partnerId) */
   partnerId?: OAuthPartnerId;
-  /** @deprecated Use partnerId instead */
-  providerId?: OAuthPartnerId;
   /** Purpose for OAuth connection */
   purpose?: 'api-access' | 'authentication';
   /** Whether to show text label */
@@ -39,7 +37,6 @@ export interface OAuthPartnerButtonProps {
  */
 function OAuthPartnerButton({
   partnerId,
-  providerId,
   purpose,
   showLabel = true,
   children,
@@ -52,7 +49,7 @@ function OAuthPartnerButton({
   const connect = useOAuth('connect');
   const status = useOAuth('status');
   const loading = status === 'initializing';
-  const resolvedId = partnerId || providerId;
+  const resolvedId = partnerId;
 
   const handlePress = async () => {
     if (!resolvedId) return;

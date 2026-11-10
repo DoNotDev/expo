@@ -144,7 +144,6 @@ function EntityFormRendererCore<T extends Record<string, any> = any>({
   const {
     control,
     handleSubmit,
-    formState: { errors },
     fields: renderableFields,
     formStatus,
     uploadProgress,
@@ -216,7 +215,6 @@ function EntityFormRendererCore<T extends Record<string, any> = any>({
               name={field.name}
               config={field.config}
               control={control}
-              errors={errors}
               t={translate}
               viewerRole={viewerRole}
             />

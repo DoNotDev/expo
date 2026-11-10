@@ -34,7 +34,6 @@ interface UncontrolledProps<
   onChange: (value: ValueTypeForField<T>) => void;
   error?: string;
   control?: never;
-  errors?: never;
 }
 
 interface ControlledProps<
@@ -42,7 +41,6 @@ interface ControlledProps<
   TFieldValues extends FieldValues = FieldValues,
 > extends FormFieldRendererBaseProps<T> {
   control: Control<TFieldValues>;
-  errors: Record<string, any>;
   value?: never;
   onChange?: never;
   error?: never;
@@ -71,7 +69,7 @@ export function FormFieldRenderer<
   const isActionButton = config.type === 'submit' || config.type === 'reset';
 
   if (isControlled && !isActionButton) {
-    const { control, errors } = props;
+    const { control } = props;
     const fieldSpecific = config.options?.fieldSpecific as
       | Record<string, unknown>
       | undefined;
@@ -85,7 +83,6 @@ export function FormFieldRenderer<
       return (
         <Component
           control={control as any}
-          errors={errors}
           fieldConfig={{ ...config, label: config.label || name }}
           t={t}
           placeholder={placeholder}
@@ -104,7 +101,6 @@ export function FormFieldRenderer<
     return TextFieldComponent ? (
       <TextFieldComponent
         control={control as any}
-        errors={errors}
         fieldConfig={{ ...config, type: 'text' }}
         t={t}
         placeholder={placeholder}
