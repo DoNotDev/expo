@@ -14,6 +14,7 @@ import type { Control, FieldValues } from 'react-hook-form';
 import { handleError } from '@donotdev/core';
 import type { EntityField, FieldType, ValueTypeForField } from '@donotdev/core';
 import { getFieldRegistry } from '@donotdev/crud';
+import type { UncontrolledFieldProps } from '@donotdev/crud';
 
 // Import built-in field types to ensure registration
 // Note: Field types are auto-registered via @donotdev/crud exports
@@ -23,6 +24,7 @@ const registry = getFieldRegistry();
 interface FormFieldRendererBaseProps<T extends FieldType = FieldType> {
   name: string;
   config: EntityField<T>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: t prop signature shared by field components; narrowing it is a breaking change for callers
   t: (key: string, options?: Record<string, any>) => string;
   viewerRole?: string;
 }
@@ -69,7 +71,8 @@ export function FormFieldRenderer<
   const isActionButton = config.type === 'submit' || config.type === 'reset';
 
   if (isControlled && !isActionButton) {
-    const { control } = props;
+    // why: Control<T> is invariant in react-hook-form; the registry is keyed by field type, not entity shape
+    const control = props.control as Control<FieldValues>;
     const fieldSpecific = config.options?.fieldSpecific as
       | Record<string, unknown>
       | undefined;
@@ -82,7 +85,7 @@ export function FormFieldRenderer<
       // They'll use Expo components internally if we create Expo-specific field components
       return (
         <Component
-          control={control as any}
+          control={control}
           fieldConfig={{ ...config, label: config.label || name }}
           t={t}
           placeholder={placeholder}
@@ -100,7 +103,7 @@ export function FormFieldRenderer<
     const TextFieldComponent = registry.getControlledComponent('text');
     return TextFieldComponent ? (
       <TextFieldComponent
-        control={control as any}
+        control={control}
         fieldConfig={{ ...config, type: 'text' }}
         t={t}
         placeholder={placeholder}
@@ -118,9 +121,10 @@ export function FormFieldRenderer<
     return (
       <UncontrolledComponent
         name={name}
-        config={config as any}
+        config={config}
         value={value}
-        onChange={onChange as any}
+        // why: registry components are typed for the FieldType union; this call site is narrowed to T
+        onChange={onChange as UncontrolledFieldProps['onChange']}
         error={error}
         t={t}
       />

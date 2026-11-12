@@ -36,6 +36,7 @@ export interface MultipleOAuthProvidersProps {
   /** Test ID for testing */
   testID?: string;
   /** Callbacks */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: public callback; giving result a concrete type is a breaking change for consumers (any-audit)
   onSuccess?: (result: any) => void;
   onError?: (error: Error) => void;
 }

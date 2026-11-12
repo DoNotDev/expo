@@ -4,8 +4,7 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "jsx": "react-jsx",
-    "types": ["jest", "@types/jest"]
+    "jsx": "react-jsx"
   },
   "include": ["src/**/*"]
 }

@@ -10,7 +10,13 @@
 
 import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
-import { ScrollView, type ScrollViewProps, type ViewStyle } from 'react-native';
+import {
+  ScrollView,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  type ScrollViewProps,
+  type ViewStyle,
+} from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 import Spinner from '../Spinner';
@@ -78,7 +84,7 @@ const InfiniteScroll = ({
 }: InfiniteScrollProps) => {
   const scrollViewRef = useRef<ScrollView>(null);
 
-  const handleScroll = (event: any) => {
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (!hasMore || loading || !onLoadMore) return;
 
     const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;

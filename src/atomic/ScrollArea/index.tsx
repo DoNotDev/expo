@@ -35,6 +35,7 @@ export interface ScrollAreaProps extends ScrollViewProps {
   /**
    * End prop (for API parity with web)
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: exported signature; narrowing it is a breaking change for importers (deferred to a major, any-audit 2026-11-11)
   end?: any;
   /**
    * Type prop (for API parity with web)

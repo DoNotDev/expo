@@ -82,7 +82,7 @@ export function EntityCardList({
 
   // Apply filters from EntityFilters component
   const applyFilters = useCallback(
-    (item: any): boolean => {
+    (item: (typeof rawData)[number]): boolean => {
       if (Object.keys(filters).length === 0) return true;
 
       return Object.entries(filters).every(([fieldName, filterValue]) => {
@@ -228,7 +228,7 @@ export function EntityCardList({
           </Stack>
         ) : (
           <Grid cols={cols}>
-            {data.map((item: any) => {
+            {data.map((item) => {
               const imageValue = imageField ? item[imageField] : null;
               const imageUrl: string | null =
                 typeof imageValue === 'string' ? imageValue : null;

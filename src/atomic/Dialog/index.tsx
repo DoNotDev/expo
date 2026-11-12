@@ -31,6 +31,12 @@ import Text from '../Text';
  */
 export type ContentSize = 'auto' | 'form' | 'text' | 'image' | 'code' | 'full';
 
+/** Props the dialog injects into an element trigger. */
+interface DialogTriggerProps {
+  onPress?: () => void;
+  testID?: string;
+}
+
 /**
  * Dialog component props interface
  */
@@ -184,8 +190,8 @@ const Dialog = ({
   return (
     <>
       {trigger &&
-        (isValidElement(trigger) ? (
-          cloneElement(trigger as React.ReactElement<any>, {
+        (isValidElement<DialogTriggerProps>(trigger) ? (
+          cloneElement(trigger, {
             onPress: handleOpen,
             testID: testID ? `${testID}-trigger` : undefined,
           })

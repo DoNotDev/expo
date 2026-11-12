@@ -22,7 +22,9 @@ import { Text, Stack } from '../../atomic';
 export interface DisplayFieldRendererProps<T extends FieldType = FieldType> {
   name: string;
   config: EntityField<T>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: exported signature; narrowing it is a breaking change for importers (deferred to a major, any-audit 2026-11-11)
   value: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: t prop signature shared by field components; narrowing it is a breaking change for callers
   t: (key: string, options?: Record<string, any>) => string;
 }
 
@@ -30,8 +32,10 @@ export interface DisplayFieldRendererProps<T extends FieldType = FieldType> {
  * Formats a value for display based on field type
  */
 export function formatValue(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: exported signature; narrowing it is a breaking change for importers (deferred to a major, any-audit 2026-11-11)
   value: any,
   config: EntityField,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: t prop signature shared by field components; narrowing it is a breaking change for callers
   t: (key: string, options?: Record<string, any>) => string,
   options?: { compact?: boolean; asString?: boolean; locale?: string }
 ): string | ReactElement {

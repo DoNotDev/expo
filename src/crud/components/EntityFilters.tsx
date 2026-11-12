@@ -33,7 +33,7 @@ import {
  * Shared filter utility - checks if an item matches a filter value
  */
 export function matchesFilter(
-  itemValue: any,
+  itemValue: unknown,
   filterValue:
     | string
     | { min?: string; max?: string }
@@ -58,7 +58,10 @@ export function matchesFilter(
 
     if (isDate) {
       const dateObj =
-        itemValue instanceof Date ? itemValue : new Date(itemValue);
+        itemValue instanceof Date
+          ? itemValue
+          : // why: raw entity values (ISO string / epoch number) go straight to Date; invalid input yields NaN, handled below
+            new Date(itemValue as string | number);
       if (isNaN(dateObj.getTime())) return true;
       const itemDateStr = dateObj.toISOString().split('T')[0]!;
       const min = filterValue.min;
@@ -102,6 +105,7 @@ export function matchesFilter(
 
 /** Props for the EntityFilters component. */
 export interface EntityFiltersProps<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: interface-typed records have no implicit index signature; Record<string, unknown> would reject them
   T extends Record<string, any> & { id: string } = Record<string, any> & {
     id: string;
   },
@@ -118,6 +122,7 @@ export interface EntityFiltersProps<
  * EntityFilters - Auto-generates filter UI based on entity field types
  */
 export function EntityFilters<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: interface-typed records have no implicit index signature; Record<string, unknown> would reject them
   T extends Record<string, any> & { id: string } = Record<string, any> & {
     id: string;
   },

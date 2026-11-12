@@ -183,14 +183,14 @@ export function EntityList({
             formatValue(value, fieldConfig, t, { compact: true }),
         };
       })
-      .filter(Boolean) as TableColumn<EntityData>[];
+      .filter((column) => column !== null);
 
     // Add actions column
     if (userRole === 'admin') {
       baseColumns.push({
         key: '_actions',
         title: tCrud('actions.label', { defaultValue: 'Actions' }),
-        dataIndex: undefined as unknown as keyof EntityData,
+        dataIndex: undefined,
         sortable: false,
         width: 120,
         align: 'center',
@@ -201,14 +201,14 @@ export function EntityList({
               onPress={() => handleEdit(record.id)}
               testID={`edit-${record.id}`}
             >
-              {tCrud('edit', { defaultValue: 'Edit' })}
+              {tCrud('actions.edit')}
             </Button>
             <Button
               variant="destructive"
               onPress={() => handleDelete(record.id)}
               testID={`delete-${record.id}`}
             >
-              {tCrud('delete', { defaultValue: 'Delete' })}
+              {tCrud('actions.delete')}
             </Button>
           </Stack>
         ),
@@ -237,9 +237,7 @@ export function EntityList({
         >
           <Stack gap={16}>
             <Input
-              placeholder={tCrud('search.placeholder', {
-                defaultValue: 'Search...',
-              })}
+              placeholder={tCrud('actions.searchPlaceholder')}
               value={searchQuery}
               onChangeText={setSearchQuery}
             />
@@ -254,11 +252,11 @@ export function EntityList({
         actions={
           <Stack direction="row" gap={8}>
             <Button variant="outline" onPress={handleRefresh} loading={loading}>
-              {tCrud('refresh', { defaultValue: 'Refresh' })}
+              {tCrud('actions.refresh')}
             </Button>
             {userRole === 'admin' && (
               <Button variant="primary" onPress={handleCreate}>
-                {tCrud('create', { defaultValue: 'Create New' })}
+                {tCrud('actions.create')}
               </Button>
             )}
           </Stack>

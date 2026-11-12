@@ -37,6 +37,7 @@ export interface AuthPartnerButtonProps {
   disabled?: boolean;
   /** Display mode: 'compact' (icon-only), 'full' (icon+label), 'auto' (responsive) */
   display?: 'compact' | 'full' | 'auto';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: public callback; giving result a concrete type is a breaking change for consumers (any-audit)
   onSuccess?: (result: any) => void;
   onError?: (error: Error) => void;
   style?: ViewStyle;

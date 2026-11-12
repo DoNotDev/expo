@@ -9,7 +9,7 @@
  */
 
 import type { ReactNode } from 'react';
-import { View, StyleSheet, type ViewProps } from 'react-native';
+import { View, StyleSheet, type ViewProps, type ViewStyle } from 'react-native';
 
 import { mergeStyles } from '../../utils/helpers';
 
@@ -35,7 +35,10 @@ const Slot = ({ children, style, ...props }: SlotProps) => {
     children !== null &&
     'props' in children
   ) {
-    const childProps = (children as any).props || {};
+    // why: a Slot child may be any element; only its `style` is read, the rest is spread through untouched
+    const childProps = (children.props || {}) as {
+      style?: ViewStyle;
+    } & Record<string, unknown>;
     const mergedStyle = mergeStyles(
       childProps.style,
       StyleSheet.flatten(style)

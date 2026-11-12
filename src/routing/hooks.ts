@@ -17,7 +17,7 @@ import {
   useNavigationStore,
   USER_ROLES,
 } from '@donotdev/core';
-import { useAuthConfig } from '@donotdev/core';
+import { useAppConfig, useAuthConfig } from '@donotdev/core';
 import type {
   PageAuth,
   FeatureStatus,
@@ -28,6 +28,8 @@ import type { NavigateOptions } from '@donotdev/ui';
 import type { RedirectGuardOptions, RedirectGuardResult } from '@donotdev/ui';
 
 import { useAuthSafe } from '../utils/useAuthSafe';
+
+import { toHref } from './toHref';
 
 /**
  * Navigation hook for Expo Router
@@ -47,9 +49,9 @@ export function useNavigate() {
       closeAll();
 
       if (options?.replace) {
-        router.replace(to as any);
+        router.replace(toHref(to));
       } else {
-        router.push(to as any);
+        router.push(toHref(to));
       }
     },
     [router, closeAll]
@@ -179,7 +181,7 @@ export function useQueryParams() {
       const pathname = location.pathname || '/';
       const newUrl = `${pathname}${newSearch ? `?${newSearch}` : ''}`;
 
-      router.push(newUrl as any);
+      router.push(toHref(newUrl));
     },
     [searchParams, router, location.pathname]
   );
@@ -193,14 +195,14 @@ export function useQueryParams() {
       const pathname = location.pathname || '/';
       const newUrl = `${pathname}${newSearch ? `?${newSearch}` : ''}`;
 
-      router.push(newUrl as any);
+      router.push(toHref(newUrl));
     },
     [searchParams, router, location.pathname]
   );
 
   const clearQueries = useCallback(() => {
     const pathname = location.pathname || '/';
-    router.push(pathname as any);
+    router.push(toHref(pathname));
   }, [router, location.pathname]);
 
   return {
@@ -222,6 +224,7 @@ export function useRedirectGuard(
   // Expo is always client-side — no SSR guard needed (avoids conditional hooks violation)
   const location = useLocation();
   const authConfig = useAuthConfig();
+  const authDisabled = useAppConfig().auth === false;
   const user = useAuthSafe('user');
   const can = useAuthSafe('can');
   const status = useAuthSafe('status');
@@ -255,6 +258,12 @@ export function useRedirectGuard(
 
       // Check if user can navigate to this route
       if (!can.navigate(auth)) {
+        // Redirect targets come from AppConfig.auth: none exist when auth is disabled
+        if (authDisabled && !customRedirectTo) {
+          throw new Error(
+            "[dndev] This route declares auth requirements but AppConfig.auth is false, so there is no auth route to redirect to. Enable auth in AppConfig or remove the route's auth requirement."
+          );
+        }
         let targetRoute: string | null = null;
 
         // Authentication failure (not logged in) → always redirect
@@ -303,6 +312,7 @@ export function useRedirectGuard(
     condition,
     customRedirectTo,
     location.search,
+    authDisabled,
     authConfig.authRoute,
     authConfig.roleRoute,
     authConfig.tierRoute,

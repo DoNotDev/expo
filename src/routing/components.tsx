@@ -12,6 +12,8 @@ import { Link as ExpoLink, Redirect as ExpoRedirect } from 'expo-router';
 import type { ReactNode } from 'react';
 import { TouchableOpacity, type TouchableOpacityProps } from 'react-native';
 
+import { toHref } from './toHref';
+
 /**
  * Link component for Expo Router
  */
@@ -26,7 +28,7 @@ export function Link({
   replace?: boolean;
 } & TouchableOpacityProps) {
   return (
-    <ExpoLink href={to as any} replace={replace} asChild>
+    <ExpoLink href={toHref(to)} replace={replace} asChild>
       <TouchableOpacity {...props}>{children}</TouchableOpacity>
     </ExpoLink>
   );
@@ -36,5 +38,5 @@ export function Link({
  * Navigate component — declarative navigation using expo-router's Redirect
  */
 export function Navigate({ to }: { to: string }) {
-  return <ExpoRedirect href={to as any} />;
+  return <ExpoRedirect href={toHref(to)} />;
 }

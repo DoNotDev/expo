@@ -8,7 +8,9 @@
  * @author AMBROISE PARK Consulting
  */
 
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, {
+  type DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 import {
   View,
@@ -77,7 +79,10 @@ const Calendar = ({
 }: CalendarProps) => {
   const [showPicker, setShowPicker] = useState(false);
 
-  const handleChange = (event: any, selectedDate?: Date) => {
+  const handleChange = (
+    _event: DateTimePickerEvent,
+    selectedDate?: Date
+  ) => {
     setShowPicker(false);
     if (selectedDate && onSelect) {
       onSelect(selectedDate);

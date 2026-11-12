@@ -208,7 +208,7 @@ const Input = ({
         <TextInput
           style={mergeStyles(
             styles.text,
-            icon ? ({ flex: 1 } as any) : undefined,
+            icon ? { flex: 1 } : undefined,
             inputStyle,
             style
           )}

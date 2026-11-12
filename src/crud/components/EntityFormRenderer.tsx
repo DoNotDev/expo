@@ -89,6 +89,7 @@ export interface EntityFormRendererProps<
  * Applies instanceKey as React key on the inner component for clean state isolation
  * when navigating between entities on the same route (e.g. /cars/:id).
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: interface-typed records have no implicit index signature; Record<string, unknown> would reject them
 export function EntityFormRenderer<T extends Record<string, any> = any>(
   props: EntityFormRendererProps<T>
 ) {
@@ -96,7 +97,8 @@ export function EntityFormRenderer<T extends Record<string, any> = any>(
   return <EntityFormRendererCore<T> key={instanceKey} {...rest} />;
 }
 
-function EntityFormRendererCore<T extends Record<string, any> = any>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: constraint mirrors the public EntityFormRenderer<T> it is called from
+function EntityFormRendererCore<T extends Record<string, any>>({
   entity,
   onSubmit,
   t,

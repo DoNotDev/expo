@@ -62,6 +62,7 @@ export interface NavigationMenuProps {
   /**
    * Custom link component for navigation
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: exported signature; narrowing it is a breaking change for importers (deferred to a major, any-audit 2026-11-11)
   LinkComponent?: any;
   /**
    * Custom children (overrides items rendering)

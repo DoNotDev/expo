@@ -1,6 +1,6 @@
 {
   "name": "@donotdev/expo",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "module",
   "private": false,
   "description": "React Native/Expo UI components for DoNotDev framework",
@@ -45,10 +45,7 @@
   "scripts": {
     "dev": "tsc --noEmit --watch --listFiles false --listEmittedFiles false",
     "clean": "rimraf dist tsconfig.tsbuildinfo",
-    "type-check": "bunx tsc --noEmit",
-    "test": "jest --forceExit",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "type-check": "bunx tsc --noEmit"
   },
   "dependencies": {
     "@donotdev/core": "workspace:*",
@@ -57,24 +54,24 @@
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-community/datetimepicker": "^8.6.0",
     "expo": "^55.0.32",
-    "expo-audio": "^1.1.1",
-    "expo-av": "^16.0.8",
+    "expo-audio": "~55.0.18",
     "expo-clipboard": "^55.0.17",
     "expo-document-picker": "^55.0.17",
     "expo-router": "^55.0.18",
+    "expo-video": "~55.0.21",
     "react-native-safe-area-context": "^5.11.1"
   },
   "peerDependencies": {
-    "@donotdev/auth": "^0.2.2",
-    "@donotdev/billing": "^0.2.2",
-    "@donotdev/oauth": "^0.2.0",
-    "@donotdev/ui": "^0.2.2",
+    "@donotdev/auth": "^0.2.3",
+    "@donotdev/billing": "^0.2.3",
+    "@donotdev/oauth": "^0.2.3",
+    "@donotdev/ui": "^0.2.3",
     "@hookform/resolvers": "^5.9.2",
     "@tanstack/react-query": "^5.0.0",
-    "firebase": "^11.0.0",
+    "firebase": "^13.3.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-hook-form": "^7.91.0",
+    "react-hook-form": "^7.92.0",
     "react-native": "^0.84.1",
     "zustand": "^5.0.0"
   },
@@ -84,14 +81,10 @@
     "@donotdev/oauth": "workspace:*",
     "@donotdev/ui": "workspace:*",
     "@hookform/resolvers": "^5.9.2",
-    "@testing-library/react-native": "^13.3.3",
-    "@types/jest": "^30.0.0",
     "@types/react": "^19.3.0",
-    "jest": "^30.5.2",
-    "jest-expo": "^54.0.18",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-hook-form": "^7.91.0",
+    "react-hook-form": "^7.92.0",
     "react-native": "^0.84.1",
     "typescript": "^5.9.3"
   },

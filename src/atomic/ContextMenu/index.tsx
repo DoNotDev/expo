@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
   Modal,
   StyleSheet,
+  type GestureResponderEvent,
   type ViewStyle,
 } from 'react-native';
 
@@ -104,7 +105,7 @@ const ContextMenu = ({
   };
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleLongPress = (event: any) => {
+  const handleLongPress = (event: GestureResponderEvent) => {
     setPosition({ x: event.nativeEvent.pageX, y: event.nativeEvent.pageY });
     setIsOpen(true);
   };

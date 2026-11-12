@@ -28,6 +28,7 @@ import Text from '../Text';
 /**
  * Table column configuration
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: exported signature; narrowing it is a breaking change for importers (deferred to a major, any-audit 2026-11-11)
 export interface TableColumn<T = any> {
   key: string;
   /** Column header */
@@ -36,6 +37,7 @@ export interface TableColumn<T = any> {
   sortable?: boolean;
   filterable?: boolean;
   /** Render prop for custom cell content */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: exported signature; narrowing it is a breaking change for importers (deferred to a major, any-audit 2026-11-11)
   render?: (value: any, record: T, index: number) => ReactNode;
   /** Column width */
   width?: string | number;
@@ -46,6 +48,7 @@ export interface TableColumn<T = any> {
 /**
  * Data table component props
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: exported signature; narrowing it is a breaking change for importers (deferred to a major, any-audit 2026-11-11)
 export interface DataTableProps<T = any> {
   /** Data array */
   data: T[];
@@ -140,6 +143,7 @@ function Table({
  * />
  * ```
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: not yet narrowed (any-audit 2026-11-11 follow-up)
 function DataTable<T = any>({
   data,
   columns,
@@ -351,12 +355,13 @@ function DataTable<T = any>({
                 </View>
               )}
               {columns.map((column) => {
-                const value = column.dataIndex
-                  ? (row as any)[column.dataIndex]
+                const value: unknown = column.dataIndex
+                  ? row[column.dataIndex]
                   : undefined;
-                const rendered = column.render
+                const rendered: ReactNode = column.render
                   ? column.render(value, row, rowIndex)
-                  : value;
+                  : // why: without `render`, the raw cell value is rendered as-is (existing contract)
+                    (value as ReactNode);
                 return (
                   <View
                     key={column.key}
