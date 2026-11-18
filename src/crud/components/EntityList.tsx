@@ -39,6 +39,8 @@ export type { EntityListProps };
  * - Excel-like table display with formatted values
  * - Edit and Delete actions (admin only)
  * - Auto-routing when handlers not provided
+ *
+ * `extraColumns`, `actions` and `extend` (shared `EntityListProps`) are web only: throws when given.
  */
 export function EntityList({
   entity,
@@ -50,7 +52,15 @@ export function EntityList({
   pageSize: pageSizeProp,
   queryOptions,
   exportable = true,
+  extraColumns,
+  actions,
+  extend,
 }: EntityListProps) {
+  if (extraColumns !== undefined || actions !== undefined || extend !== undefined) {
+    throw new Error(
+      'EntityList (Expo): `extraColumns`, `actions` and `extend` are not supported on React Native. Remove them, or render the rows with `useChildRows` from @donotdev/crud.'
+    );
+  }
   const navigate = useNavigate();
   const base = basePath ?? `/${entity.collection}`;
 

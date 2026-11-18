@@ -3,6 +3,10 @@
  * @fileoverview EntityFormRenderer component
  * @description Renders a form from entity definition with navigation support.
  * Supports cancelPath/successPath for optimistic navigation after submit/cancel.
+ * Fields the viewer cannot edit are shown read-only: computed fields from form
+ * state, the others (technical, `editable: false`, role-denied) from `form.record`.
+ * `onSubmit` / `onSecondarySubmit` receive the validated form values (the fields
+ * the form writes).
  *
  * @version 0.1.0
  * @since 0.0.1
@@ -10,13 +14,14 @@
  */
 
 import { useEffect, useId, useCallback } from 'react';
-import { FormProvider } from 'react-hook-form';
+import { FormProvider, useWatch } from 'react-hook-form';
+import type { Control, FieldValues, Path } from 'react-hook-form';
 import { Alert } from 'react-native';
 import type { ViewStyle } from 'react-native';
 
 import { useTranslation } from '@donotdev/core';
-import type { Entity } from '@donotdev/core';
-import type { ViewerRole, InferEntityData } from '@donotdev/crud';
+import type { Entity, EntityField, FieldOperation, FormValues } from '@donotdev/core';
+import type { ViewerRole } from '@donotdev/crud';
 
 import { DisplayFieldRenderer } from './DisplayFieldRenderer';
 import { FormFieldRenderer } from './FormFieldRenderer';
@@ -26,6 +31,25 @@ import { useAuthSafe } from '../../utils/useAuthSafe';
 import { UploadProvider } from '../contexts/UploadContext';
 import { useEntityForm } from '../forms/hooks/useEntityForm';
 import { useFormStore } from '../stores';
+
+/**
+ * Read-only field the form writes (`editable: 'computed'`): its live form value.
+ */
+function FormDisplayField<TFieldValues extends FieldValues>({
+  name,
+  config,
+  control,
+  t,
+}: {
+  name: string;
+  config: EntityField;
+  control: Control<TFieldValues>;
+  t: (key: string, options?: Record<string, unknown>) => string;
+}) {
+  // why: renderable field names are the entity's own field names
+  const value = useWatch({ control, name: name as Path<TFieldValues> });
+  return <DisplayFieldRenderer name={name} config={config} value={value} t={t} />;
+}
 
 /** Props for the EntityFormRenderer component. */
 export interface EntityFormRendererProps<
@@ -182,7 +206,10 @@ function EntityFormRendererCore<T extends Record<string, any>>({
     }
   }, [resetForm, onCancel, cancelPath, navigate]);
 
-  const handleFormSubmit = async (data: InferEntityData<typeof entity>) => {
+  // What the form submits: the fields it writes (the resolver's output)
+  type Values = FormValues<typeof entity, FieldOperation>;
+
+  const handleFormSubmit = async (data: Values) => {
     try {
       await onSubmit(data as T);
     } catch (error) {
@@ -211,16 +238,36 @@ function EntityFormRendererCore<T extends Record<string, any>>({
     <UploadProvider formId={formId}>
       <FormProvider {...form}>
         <Stack gap={16} style={style} testID={testID}>
-          {renderableFields.map((field) => (
-            <FormFieldRenderer
-              key={field.name}
-              name={field.name}
-              config={field.config}
-              control={control}
-              t={translate}
-              viewerRole={viewerRole}
-            />
-          ))}
+          {renderableFields.map((field) =>
+            field.editable ? (
+              <FormFieldRenderer
+                key={field.name}
+                name={field.name}
+                config={field.config}
+                control={control}
+                t={translate}
+                viewerRole={viewerRole}
+              />
+            ) : field.written ? (
+              // Computed: written by the form, shown from form state
+              <FormDisplayField
+                key={field.name}
+                name={field.name}
+                config={field.config}
+                control={control}
+                t={translate}
+              />
+            ) : (
+              // Technical, editable: false, role-denied: not in form state
+              <DisplayFieldRenderer
+                key={field.name}
+                name={field.name}
+                config={field.config}
+                value={(form.record as Record<string, unknown> | undefined)?.[field.name]}
+                t={translate}
+              />
+            )
+          )}
           <Stack direction="row" gap={8} justify="flex-end">
             {cancelText !== null && (cancelText || cancelPath || onCancel) && (
               <Button
@@ -234,11 +281,9 @@ function EntityFormRendererCore<T extends Record<string, any>>({
             {secondaryButtonText && onSecondarySubmit && (
               <Button
                 variant={secondaryButtonVariant}
-                onPress={handleSubmit(
-                  (data: InferEntityData<typeof entity>) => {
-                    onSecondarySubmit(data as T);
-                  }
-                )}
+                onPress={handleSubmit((data: Values) => {
+                  onSecondarySubmit(data as T);
+                })}
                 testID={testID ? `${testID}-secondary` : undefined}
               >
                 {secondaryButtonText}
