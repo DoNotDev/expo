@@ -8,22 +8,32 @@
  * @author AMBROISE PARK Consulting
  */
 
-import type { ViewStyle, TextStyle } from 'react-native';
+import type { ImageStyle, TextStyle, ViewStyle } from 'react-native';
+
+/** Style input accepted by {@link mergeStyles}: a style object, or a falsy value that is skipped. */
+type StyleInput<T> = T | undefined | null | false;
 
 /**
  * Merges style objects for React Native
  *
- * Combines multiple style inputs into a single style object.
+ * Combines style inputs of one style kind into a single style object, typed as
+ * that kind: View inputs give a `ViewStyle`, Text inputs a `TextStyle`, Image
+ * inputs an `ImageStyle`. Never feed a `TextStyle` to a View: under Expo's
+ * typings (`expo/types`, referenced by every Expo app) `TextStyle` is not
+ * assignable to `ViewStyle`.
  *
- * @param {...(ViewStyle | TextStyle | undefined | null | false)} inputs - Style inputs to merge
- * @returns {ViewStyle | TextStyle} Merged style object
- * @version 0.1.0
+ * @param {...(ViewStyle | TextStyle | ImageStyle | undefined | null | false)} inputs - Style inputs to merge (falsy entries are skipped)
+ * @returns {ViewStyle | TextStyle | ImageStyle} Merged style object, typed as the inputs' style kind
+ * @version 0.2.0
  * @since 0.0.1
  * @author AMBROISE PARK Consulting
  */
+export function mergeStyles(...inputs: StyleInput<ViewStyle>[]): ViewStyle;
+export function mergeStyles(...inputs: StyleInput<TextStyle>[]): TextStyle;
+export function mergeStyles(...inputs: StyleInput<ImageStyle>[]): ImageStyle;
 export function mergeStyles(
-  ...inputs: Array<ViewStyle | TextStyle | undefined | null | false>
-): ViewStyle | TextStyle {
+  ...inputs: StyleInput<ViewStyle | TextStyle | ImageStyle>[]
+): ViewStyle | TextStyle | ImageStyle {
   return Object.assign({}, ...inputs.filter(Boolean));
 }
 

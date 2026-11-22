@@ -8,6 +8,10 @@
  * @author AMBROISE PARK Consulting
  */
 
+// Firebase's public typings omit getReactNativePersistence: the shim must load in every
+// program that compiles this file, including a consumer app's (an unreferenced .d.ts is not).
+/// <reference path="./auth.d.ts" />
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getApp } from 'firebase/app';
 import {

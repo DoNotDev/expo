@@ -4,7 +4,9 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "customConditions": ["react-native"],
+    "types": ["node", "expo/types"]
   },
   "include": ["src/**/*"]
 }
