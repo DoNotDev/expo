@@ -319,7 +319,7 @@ export function EntityFilters<
           }}
           testID={testID ? `${testID}-clear` : undefined}
         >
-          {tCrud('filter.clearAll', { defaultValue: 'Clear all filters' })}
+          {tCrud('filter.clearAll')}
         </Button>
       )}
     </Stack>

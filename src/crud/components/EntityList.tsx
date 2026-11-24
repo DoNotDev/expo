@@ -92,6 +92,7 @@ export function EntityList({
 
   // Entity + crud namespaces so formatValue can resolve crud:price.* etc.
   const { t } = useTranslation([entity.namespace, 'crud']);
+  const entityName = t('name', { defaultValue: entity.name });
 
   // Get filters for applying to data (EntityFilters manages its own state)
   const { filters } = useCrudFilters({
@@ -199,7 +200,7 @@ export function EntityList({
     if (userRole === 'admin') {
       baseColumns.push({
         key: '_actions',
-        title: tCrud('actions.label', { defaultValue: 'Actions' }),
+        title: tCrud('actions.label'),
         dataIndex: undefined,
         sortable: false,
         width: 120,
@@ -241,7 +242,7 @@ export function EntityList({
       {/* Filters Section */}
       {!hideFilters && (
         <Section
-          title={tCrud('filters.title', { defaultValue: 'Filters' })}
+          title={tCrud('filters.title', { entity: entityName })}
           collapsible
           defaultCollapsed={false}
         >
@@ -258,7 +259,11 @@ export function EntityList({
 
       {/* Results Section */}
       <Section
-        title={tCrud('results.title', { defaultValue: 'Results' })}
+        title={
+          loading
+            ? tCrud('results.title.fetching')
+            : tCrud('results.title.count', { count: data.length })
+        }
         actions={
           <Stack direction="row" gap={8}>
             <Button variant="outline" onPress={handleRefresh} loading={loading}>

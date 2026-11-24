@@ -73,8 +73,8 @@ function ConfirmDeleteDialog({
     <Dialog
       open={open}
       onOpenChange={onOpenChange}
-      title={t('deleteAccount', 'Delete Account')}
-      description={t('deleteAccountWarning', 'This action cannot be undone')}
+      title={t('deleteAccount.confirm.title')}
+      description={t('deleteAccount.confirm.description')}
     >
       <Stack gap={16}>
         {errorState && (
@@ -82,9 +82,7 @@ function ConfirmDeleteDialog({
             {errorState}
           </Text>
         )}
-        <Text level="body">
-          {t('deleteAccountConfirm', 'Type "DELETE" to confirm')}
-        </Text>
+        <Text level="body">{t('deleteAccountConfirm')}</Text>
         <Input
           value={confirmText}
           onChangeText={setConfirmText}
@@ -97,7 +95,7 @@ function ConfirmDeleteDialog({
             onPress={() => onOpenChange?.(false)}
             testID="delete-cancel"
           >
-            {t('cancel', 'Cancel')}
+            {t('cancel')}
           </Button>
           <Button
             variant="destructive"
@@ -106,7 +104,7 @@ function ConfirmDeleteDialog({
             loading={isDeletingState}
             testID="delete-confirm"
           >
-            {t('delete', 'Delete')}
+            {t('delete')}
           </Button>
         </Stack>
       </Stack>

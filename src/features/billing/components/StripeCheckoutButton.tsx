@@ -71,8 +71,7 @@ export function StripeCheckoutButton({
   const status = useStripeBilling('status');
   const loading = status === FEATURE_STATUS.INITIALIZING;
 
-  const defaultLoadingText =
-    loadingText || t('components.buttons.processing', 'Processing...');
+  const defaultLoadingText = loadingText || t('components.buttons.processing');
 
   const handlePress = async () => {
     if (disabled || loading) return;

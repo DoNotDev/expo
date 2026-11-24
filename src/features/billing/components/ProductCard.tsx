@@ -102,7 +102,7 @@ export function ProductCard({
               variant="primary"
               testID={testID ? `${testID}-popular-badge` : undefined}
             >
-              {t('popular', 'Popular')}
+              {t('billing:components.productCard.mostPopular')}
             </Badge>
           )}
           {limitedTime && (
@@ -110,7 +110,7 @@ export function ProductCard({
               variant="warning"
               testID={testID ? `${testID}-limited-badge` : undefined}
             >
-              {t('limitedTime', 'Limited Time')}
+              {t('billing:components.productCard.limitedTime')}
             </Badge>
           )}
           <Text level="h3">{translatedName}</Text>
@@ -154,8 +154,8 @@ export function ProductCard({
           testID={testID ? `${testID}-checkout` : undefined}
         >
           {mode === 'subscription'
-            ? t('subscribe', 'Subscribe')
-            : t('purchase', 'Purchase')}
+            ? t('billing:components.productCard.subscribeNow')
+            : t('billing:components.productCard.purchaseNow')}
         </StripeCheckoutButton>
       </Stack>
     </Card>

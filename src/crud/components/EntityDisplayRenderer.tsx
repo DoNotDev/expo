@@ -115,7 +115,7 @@ export function EntityDisplayRenderer<
           <Text level="h3" variant="muted">
             {notFoundMessage ||
               tCrud('errors.notFound', {
-                defaultValue: `${entity.name} not found`,
+                entity: tDual('name', { defaultValue: entity.name }),
               })}
           </Text>
           {displayError && (

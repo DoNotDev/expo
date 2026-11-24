@@ -41,11 +41,8 @@ export function SecurityNotice({
   return (
     <Alert
       variant="info"
-      title={t('security.title', 'Secure Payment')}
-      description={t(
-        'security.description',
-        'Your payment is processed securely by Stripe. We never store your payment information.'
-      )}
+      title={t('security.title')}
+      description={t('security.description')}
       style={style}
       testID={testID}
     />

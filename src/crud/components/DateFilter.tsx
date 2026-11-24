@@ -135,7 +135,7 @@ export function DateFilter({
                 }}
                 testID={testID ? `${testID}-preset-${preset}` : undefined}
               >
-                {tCrud(`filter.${preset}`, { defaultValue: preset })}
+                {tCrud(`filter.${preset}`)}
               </Button>
             );
           })}
@@ -167,7 +167,7 @@ export function DateFilter({
           }}
           testID={testID ? `${testID}-clear-${range}` : undefined}
         >
-          {tCrud('filter.clear', { defaultValue: 'Clear' })}
+          {tCrud('filter.clear')}
         </Button>
       </Stack>
     );
@@ -191,10 +191,10 @@ export function DateFilter({
           >
             {current?.min
               ? formatDisplayDate(current.min)
-              : tCrud('filter.min', { defaultValue: 'Min' })}
+              : tCrud('filter.min')}
           </Button>
         }
-        title={`${label} - ${tCrud('filter.min', { defaultValue: 'Min' })}`}
+        title={`${label} - ${tCrud('filter.min')}`}
         open={open && activeRange === 'start'}
         onOpenChange={(isOpen) => {
           setOpen(isOpen);
@@ -220,10 +220,10 @@ export function DateFilter({
           >
             {current?.max
               ? formatDisplayDate(current.max)
-              : tCrud('filter.max', { defaultValue: 'Max' })}
+              : tCrud('filter.max')}
           </Button>
         }
-        title={`${label} - ${tCrud('filter.max', { defaultValue: 'Max' })}`}
+        title={`${label} - ${tCrud('filter.max')}`}
         open={open && activeRange === 'end'}
         onOpenChange={(isOpen) => {
           setOpen(isOpen);

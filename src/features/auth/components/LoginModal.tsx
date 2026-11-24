@@ -29,8 +29,8 @@ function LoginModal({ open, onOpenChange }: LoginModalProps) {
     <Dialog
       open={open}
       onOpenChange={onOpenChange}
-      title={t('signIn', 'Sign In')}
-      description={t('choosePlatform', 'Choose a platform to sign in with')}
+      title={t('signIn')}
+      description={t('dndev:choosePlatform')}
     >
       <MultipleAuthProviders
         layout="vertical"

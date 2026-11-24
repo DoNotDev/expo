@@ -38,11 +38,8 @@ function OAuthConnectionModal({
     <Dialog
       open={open}
       onOpenChange={onOpenChange}
-      title={title || t('connectAccount', 'Connect Account')}
-      description={
-        description ||
-        t('chooseProvider', 'Choose a provider to connect your account')
-      }
+      title={title || t('connectServices')}
+      description={description || t('chooseService')}
     >
       <MultipleOAuthProviders
         layout="vertical"

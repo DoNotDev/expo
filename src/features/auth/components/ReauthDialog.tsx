@@ -50,8 +50,8 @@ function ReauthDialog({
     <Dialog
       open={open}
       onOpenChange={onOpenChange}
-      title={t('reauth', 'Re-authentication Required')}
-      description={t('reauthDescription', 'Please sign in again to continue')}
+      title={t('reauth')}
+      description={t('reauthDescription')}
     >
       <Stack gap={16}>
         {error && (
@@ -68,7 +68,7 @@ function ReauthDialog({
         />
         {onCancel && (
           <Button variant="outline" onPress={onCancel} testID="reauth-cancel">
-            {t('cancel', 'Cancel')}
+            {t('cancel')}
           </Button>
         )}
       </Stack>

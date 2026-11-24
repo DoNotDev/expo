@@ -83,7 +83,7 @@ function AuthPartnerButton({
         style={style}
         testID={testID}
       >
-        {children || t('signInWithEmail', 'Sign in with Email')}
+        {children || t('buttons.password')}
       </Button>
     );
   }
@@ -101,7 +101,7 @@ function AuthPartnerButton({
     return (
       <Button variant="outline" disabled style={style} testID={testID}>
         <Text level="body" variant="muted">
-          {t('emailLinkNotSupported', 'Email link not supported on mobile')}
+          {t('emailLinkNotSupported')}
         </Text>
       </Button>
     );
@@ -132,7 +132,6 @@ function AuthPartnerButton({
     if (isLoading)
       return t('buttons.signingIn', {
         partner: partnerName,
-        defaultValue: `Signing in with ${partnerName}...`,
       });
     return partnerConfig?.button?.textKey
       ? t(partnerConfig.button.textKey)

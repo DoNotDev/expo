@@ -158,7 +158,6 @@ export function EntityCardList({
         <Section
           title={tCrud('filters.title', {
             entity: entityName,
-            defaultValue: `Browse ${entityName} - Filters`,
           })}
           collapsible
           defaultCollapsed={false}
@@ -170,10 +169,8 @@ export function EntityCardList({
               onPress={() => setShowFavoritesOnly(!showFavoritesOnly)}
             >
               {showFavoritesOnly
-                ? tCrud('favorites.showAll', { defaultValue: 'Show All' })
-                : tCrud('favorites.showFavorites', {
-                    defaultValue: 'Show Favorites',
-                  })}
+                ? tCrud('favorites.showAll')
+                : tCrud('favorites.showFavorites')}
             </Button>
 
             <EntityFilters
@@ -189,13 +186,9 @@ export function EntityCardList({
       <Section
         title={
           loading
-            ? tCrud('results.title.fetching', { defaultValue: 'Fetching...' })
+            ? tCrud('results.title.fetching')
             : tCrud('results.title.count', {
                 count: data.length,
-                defaultValue:
-                  data.length === 1
-                    ? 'Found 1 occurrence'
-                    : `Found ${data.length} occurrences`,
               })
         }
         collapsible
@@ -216,14 +209,10 @@ export function EntityCardList({
             style={{ padding: theme.spacing.lg }}
           >
             <Text level="h3" variant="muted">
-              {tCrud('emptyState.title', {
-                defaultValue: `No ${entity.name.toLowerCase()} found`,
-              })}
+              {tCrud('emptyState.title', { entity: entityName })}
             </Text>
             <Text variant="muted">
-              {tCrud('emptyState.description', {
-                defaultValue: `No ${entity.name.toLowerCase()} available at this time.`,
-              })}
+              {tCrud('emptyState.description', { entity: entityName })}
             </Text>
           </Stack>
         ) : (

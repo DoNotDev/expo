@@ -275,7 +275,7 @@ function EntityFormRendererCore<T extends Record<string, any>>({
                 onPress={handleCancel}
                 testID={testID ? `${testID}-cancel` : undefined}
               >
-                {cancelText || tCrud('form.cancel', { defaultValue: 'Cancel' })}
+                {cancelText || tCrud('form.cancel')}
               </Button>
             )}
             {secondaryButtonText && onSecondarySubmit && (
@@ -297,8 +297,8 @@ function EntityFormRendererCore<T extends Record<string, any>>({
             >
               {submitText ||
                 (operation === 'create'
-                  ? tCrud('form.create', { defaultValue: 'Create' })
-                  : tCrud('form.save', { defaultValue: 'Save' }))}
+                  ? tCrud('actions.create')
+                  : tCrud('actions.save'))}
             </Button>
           </Stack>
         </Stack>

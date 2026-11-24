@@ -56,10 +56,10 @@ export function SubscriptionManager({
       <Card style={style} testID={testID}>
         <Stack gap={16}>
           <Text level="h3">
-            {t('noSubscription', 'No Active Subscription')}
+            {t('components.subscriptionManager.noSubscription')}
           </Text>
           <Text level="body" variant="muted">
-            {t('subscribeToAccess', 'Subscribe to access premium features')}
+            {t('components.subscriptionManager.subscribeToAccess')}
           </Text>
         </Stack>
       </Card>
@@ -69,14 +69,15 @@ export function SubscriptionManager({
   return (
     <Card style={style} testID={testID}>
       <Stack gap={16}>
-        <Text level="h3">{t('subscription', 'Subscription')}</Text>
+        <Text level="h3">{t('components.subscriptionManager.title')}</Text>
         <Stack gap={8}>
           <Text level="body">
-            {t('status', 'Status')}: {subscription.status}
+            {t('components.subscriptionManager.statusLabel')}:{' '}
+            {subscription.status}
           </Text>
           {subscription.subscriptionEnd && (
             <Text level="body" variant="muted">
-              {t('renewsOn', 'Renews on')}:{' '}
+              {t('components.subscriptionManager.renewsOn')}:{' '}
               {new Date(subscription.subscriptionEnd).toLocaleDateString()}
             </Text>
           )}
@@ -86,7 +87,7 @@ export function SubscriptionManager({
           onPress={handleManage}
           testID={testID ? `${testID}-manage` : undefined}
         >
-          {t('manageSubscription', 'Manage Subscription')}
+          {t('components.subscriptionManager.manageSubscription')}
         </Button>
       </Stack>
     </Card>

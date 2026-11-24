@@ -58,8 +58,8 @@ const FormLayout = <T extends FieldValues>({
   const { t } = useTranslation('dndev');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const defaultSubmitText = submitText || t('form.submit', 'Submit');
-  const defaultCancelText = cancelText || t('form.cancel', 'Cancel');
+  const defaultSubmitText = submitText || t('form.submit');
+  const defaultCancelText = cancelText || t('form.cancel');
 
   // Use handleSubmit to run react-hook-form validation before calling onSubmit (Item 97)
   const handleSubmit = formMethods.handleSubmit(async (data) => {
@@ -109,9 +109,7 @@ const FormLayout = <T extends FieldValues>({
               <Stack direction="row" gap={8} align="center">
                 <Spinner />
                 <Text level="body">
-                  {isSubmitting
-                    ? t('form.submitting', 'Submitting...')
-                    : t('form.loading', 'Loading...')}
+                  {isSubmitting ? t('form.submitting') : t('form.loading')}
                 </Text>
               </Stack>
             ) : (
