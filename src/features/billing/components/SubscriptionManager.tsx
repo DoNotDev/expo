@@ -12,9 +12,12 @@ import type { ViewStyle } from 'react-native';
 
 import { useAuth } from '@donotdev/auth';
 import { useStripeBilling } from '@donotdev/billing';
-import { useTranslation } from '@donotdev/core';
+import { formatDate, useTranslation } from '@donotdev/core';
 
 import { Stack, Text, Button, Card } from '../../../atomic';
+
+/** Numeric date (the `toLocaleDateString()` layout), in the app's zone (`formatDate`), as the web SubscriptionManager. */
+const NUMERIC_DATE = { year: 'numeric', month: 'numeric', day: 'numeric' } as const;
 
 /** Props for the SubscriptionManager component. */
 export interface SubscriptionManagerProps {
@@ -38,7 +41,7 @@ export function SubscriptionManager({
   style,
   testID,
 }: SubscriptionManagerProps & { style?: ViewStyle; testID?: string }) {
-  const { t } = useTranslation('billing');
+  const { t, language } = useTranslation('billing');
   const userSubscription = useAuth('userSubscription');
   const openCustomerPortal = useStripeBilling('openCustomerPortal');
   const subscription = userSubscription;
@@ -78,7 +81,7 @@ export function SubscriptionManager({
           {subscription.subscriptionEnd && (
             <Text level="body" variant="muted">
               {t('components.subscriptionManager.renewsOn')}:{' '}
-              {new Date(subscription.subscriptionEnd).toLocaleDateString()}
+              {formatDate(subscription.subscriptionEnd, language, NUMERIC_DATE)}
             </Text>
           )}
         </Stack>

@@ -11,7 +11,7 @@
 import { useMemo, useCallback, useState } from 'react';
 import { View } from 'react-native';
 
-import { useTranslation } from '@donotdev/core';
+import { effectivePrice, useTranslation } from '@donotdev/core';
 import type { Entity } from '@donotdev/core';
 import type { EntityListProps } from '@donotdev/core';
 import {
@@ -22,6 +22,7 @@ import {
 } from '@donotdev/crud';
 import type { InferEntityData } from '@donotdev/crud';
 
+import { CrudLoadError } from './CrudLoadError';
 import { formatValue } from './DisplayFieldRenderer';
 import { EntityFilters, matchesFilter } from './EntityFilters';
 import { DataTable, Button, Stack, Section, Input } from '../../atomic';
@@ -40,7 +41,7 @@ export type { EntityListProps };
  * - Edit and Delete actions (admin only)
  * - Auto-routing when handlers not provided
  *
- * `extraColumns`, `actions` and `extend` (shared `EntityListProps`) are web only: throws when given.
+ * `extraColumns`, `actions`, `extend` and `deletable` (shared `EntityListProps`) are web only: throws when given.
  */
 export function EntityList({
   entity,
@@ -55,10 +56,16 @@ export function EntityList({
   extraColumns,
   actions,
   extend,
+  deletable,
 }: EntityListProps) {
-  if (extraColumns !== undefined || actions !== undefined || extend !== undefined) {
+  if (
+    extraColumns !== undefined ||
+    actions !== undefined ||
+    extend !== undefined ||
+    deletable !== undefined
+  ) {
     throw new Error(
-      'EntityList (Expo): `extraColumns`, `actions` and `extend` are not supported on React Native. Remove them, or render the rows with `useChildRows` from @donotdev/crud.'
+      'EntityList (Expo): `extraColumns`, `actions`, `extend` and `deletable` are not supported on React Native. Remove them, or render the rows with `useChildRows` from @donotdev/crud.'
     );
   }
   const navigate = useNavigate();
@@ -74,6 +81,7 @@ export function EntityList({
   const {
     data: listData,
     loading,
+    error: listError,
     mutate: refreshList,
   } = useCrudList(entity, {
     pagination,
@@ -93,6 +101,8 @@ export function EntityList({
   // Entity + crud namespaces so formatValue can resolve crud:price.* etc.
   const { t } = useTranslation([entity.namespace, 'crud']);
   const entityName = t('name', { defaultValue: entity.name });
+  // The load error's subject: the plural name (as the web EntityList)
+  const entityNames = t('namePlural', { defaultValue: entityName });
 
   // Get filters for applying to data (EntityFilters manages its own state)
   const { filters } = useCrudFilters({
@@ -187,9 +197,14 @@ export function EntityList({
           key: fieldName,
           title: label,
           dataIndex: fieldName as keyof EntityData,
-          sortable: true,
           filterable: true,
           align,
+          // A price sorts on the price it shows (discount applied), not its text
+          ...(fieldType === 'price' && {
+            sortValue: (row: EntityData) =>
+              // why: fieldName is a runtime string of the entity; the inferred row type has no string index
+              effectivePrice((row as Record<string, unknown>)[fieldName]),
+          }),
           render: (value: unknown, record: EntityData) =>
             formatValue(value, fieldConfig, t, { compact: true }),
         };
@@ -262,7 +277,9 @@ export function EntityList({
         title={
           loading
             ? tCrud('results.title.fetching')
-            : tCrud('results.title.count', { count: data.length })
+            : listError
+              ? undefined // the load error box's title says it once (as the web)
+              : tCrud('results.title.count', { count: data.length })
         }
         actions={
           <Stack direction="row" gap={8}>
@@ -277,15 +294,25 @@ export function EntityList({
           </Stack>
         }
       >
-        <DataTable
-          data={filteredData}
-          columns={columns}
-          loading={loading}
-          pagination={pagination !== undefined}
-          pageSize={pageSizeProp}
-          onRowPress={(row: EntityData) => handleView(row.id)}
-          testID="entity-list-table"
-        />
+        {/* The read failed: the shared load error (translated, Retry), never an empty table */}
+        {listError ? (
+          <CrudLoadError
+            error={listError}
+            entity={entityNames}
+            onRetry={handleRefresh}
+            testID="entity-list-error"
+          />
+        ) : (
+          <DataTable
+            data={filteredData}
+            columns={columns}
+            loading={loading}
+            pagination={pagination !== undefined}
+            pageSize={pageSizeProp}
+            onRowPress={(row: EntityData) => handleView(row.id)}
+            testID="entity-list-table"
+          />
+        )}
       </Section>
     </Stack>
   );

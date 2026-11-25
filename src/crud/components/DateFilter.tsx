@@ -61,9 +61,9 @@ export function DateFilter({
     // Validate YYYY-MM-DD format before parsing
     if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
     try {
-      const date = new Date(dateStr + 'T00:00:00');
-      if (isNaN(date.getTime())) return dateStr;
-      return formatDate(date, locale);
+      // A calendar date (YYYY-MM-DD): formatDate reads it as written, in no zone
+      if (isNaN(new Date(dateStr).getTime())) return dateStr;
+      return formatDate(dateStr, locale);
     } catch {
       return dateStr;
     }

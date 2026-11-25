@@ -17,8 +17,15 @@ import {
   type ViewStyle,
 } from 'react-native';
 
+import { useTranslation } from '@donotdev/core';
+
 import { useTheme } from '../../theme';
 import { mergeStyles } from '../../utils/helpers';
+import {
+  DEFAULT_TABLE_PAGE_SIZE,
+  sortableTableColumns,
+  sortTableRows,
+} from '../../utils/tableSort';
 import Checkbox from '../Checkbox';
 import Input from '../Input';
 import Pagination from '../Pagination';
@@ -33,8 +40,28 @@ export interface TableColumn<T = any> {
   key: string;
   /** Column header */
   title: string | ReactNode;
+  /** Row field shown in the cell. Sorting reads a dotted key (`'offer.price'`) as is when the row has it, else as a path. */
   dataIndex?: keyof T;
+  /**
+   * Sorting is on by default: a column with `dataIndex` or `render` sorts on
+   * what its cells show, in the UI language (the i18n language): numbers, dates and booleans
+   * by value, other cells by the text `render` shows (a formatted number such
+   * as `1 234,50 €` by value), case and accents ignored; empty cells last. A
+   * column whose cells are all empty or all the same over the data (an action
+   * column) has nothing to sort: no arrow, header press inert. `false` opts
+   * this column out.
+   * Same sort as the web DataTable (`sortTableRows`, a copy in `src/utils/tableSort.ts`).
+   * @default true
+   */
   sortable?: boolean;
+  /**
+   * Sort value of a row in this column, used instead of the value derived from
+   * `dataIndex` / `render`; it goes through the same comparison (numbers, dates,
+   * texts with the collator, empty last). Framework-internal for field-typed lists
+   * (EntityList sets it for price fields: the discounted price the cell shows).
+   * Apps normally don't need it: put the shown value in the row instead.
+   */
+  sortValue?: (row: T) => unknown;
   filterable?: boolean;
   /** Render prop for custom cell content */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- why: exported signature; narrowing it is a breaking change for importers (deferred to a major, any-audit 2026-11-11)
@@ -54,7 +81,11 @@ export interface DataTableProps<T = any> {
   data: T[];
   /** Column definitions */
   columns: TableColumn<T>[];
-  /** Enable sorting */
+  /**
+   * Header press sorts the rows on that column (see `TableColumn.sortable`);
+   * `false` turns sorting off for every column.
+   * @default true
+   */
   sortable?: boolean;
   /** Enable row selection */
   selectable?: boolean;
@@ -64,7 +95,10 @@ export interface DataTableProps<T = any> {
   pagination?: boolean;
   /** Current page (1-indexed) */
   currentPage?: number;
-  /** Page size */
+  /**
+   * Page size
+   * @default 25
+   */
   pageSize?: number;
   /** Total number of items */
   total?: number;
@@ -74,7 +108,7 @@ export interface DataTableProps<T = any> {
   onPageSizeChange?: (pageSize: number) => void;
   /** Loading state */
   loading?: boolean;
-  /** Callback when sorting changes */
+  /** Called with the column key and direction after a header press (the table sorts the rows itself). */
   onSort?: (column: string, direction: 'asc' | 'desc') => void;
   /** Callback when selection changes */
   onSelect?: (selectedRows: T[]) => void;
@@ -138,7 +172,7 @@ function Table({
  *   data={data}
  *   columns={[
  *     { key: 'name', title: 'Name', dataIndex: 'name' },
- *     { key: 'age', title: 'Age', dataIndex: 'age', sortable: true }
+ *     { key: 'age', title: 'Age', dataIndex: 'age' }
  *   ]}
  * />
  * ```
@@ -147,7 +181,7 @@ function Table({
 function DataTable<T = any>({
   data,
   columns,
-  sortable = false,
+  sortable = true,
   selectable = false,
   searchable = false,
   pagination = false,
@@ -206,7 +240,8 @@ function DataTable<T = any>({
     }),
   };
   const [internalPage, setInternalPage] = useState(1);
-  const [internalPageSize, setInternalPageSize] = useState(10);
+  // Same default as the web DataTable (one constant)
+  const [internalPageSize, setInternalPageSize] = useState(DEFAULT_TABLE_PAGE_SIZE);
   const [search, setSearch] = useState('');
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
@@ -215,23 +250,27 @@ function DataTable<T = any>({
   const currentPage = controlledPage ?? internalPage;
   const pageSize = controlledPageSize ?? internalPageSize;
 
+  // UI language (i18n): text comparison and formatted numbers of the sort
+  const { language } = useTranslation();
+  // Columns with something to sort over the data (2+ different values), once per data / columns change
+  const sortableKeys = useMemo(
+    () => sortableTableColumns(data, columns, sortable, language),
+    [data, columns, sortable, language]
+  );
+
   const filteredData = useMemo(() => {
     let result = [...data];
     if (search && onSearch) {
       onSearch(search);
       // Filtering would be handled by parent if onSearch is provided
     }
-    if (sortColumn && sortable) {
-      result.sort((a, b) => {
-        const aVal = String((a as Record<string, unknown>)[sortColumn] ?? '');
-        const bVal = String((b as Record<string, unknown>)[sortColumn] ?? '');
-        if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
-        if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
-        return 0;
-      });
+    // Sorting: on what the column shows, in the UI language (one sort with the web DataTable)
+    const sortBy = columns.find((column) => column.key === sortColumn);
+    if (sortBy && sortableKeys.has(sortBy.key)) {
+      result = sortTableRows(result, sortBy, sortDirection, language);
     }
     return result;
-  }, [data, search, sortColumn, sortDirection, sortable, onSearch]);
+  }, [data, search, sortColumn, sortDirection, onSearch, columns, sortableKeys, language]);
 
   const paginatedData = pagination
     ? filteredData.slice((currentPage - 1) * pageSize, currentPage * pageSize)
@@ -306,31 +345,34 @@ function DataTable<T = any>({
               />
             </View>
           )}
-          {columns.map((column) => (
-            <TouchableOpacity
-              key={column.key}
-              style={[cellStyle, { flex: column.width ? 0 : 1 }]}
-              onPress={() => column.sortable && handleSort(column.key)}
-              disabled={!column.sortable}
-              activeOpacity={column.sortable ? 0.7 : 1}
-              testID={testID ? `${testID}-header-${column.key}` : undefined}
-            >
-              <Stack direction="row" align="center" gap={4}>
-                <Text
-                  level="body"
-                  variant="muted"
-                  style={{ fontWeight: '600' }}
-                >
-                  {column.title}
-                </Text>
-                {column.sortable && sortColumn === column.key && (
-                  <Text level="caption" variant="muted">
-                    {sortDirection === 'asc' ? '↑' : '↓'}
+          {columns.map((column) => {
+            const columnSortable = sortableKeys.has(column.key);
+            return (
+              <TouchableOpacity
+                key={column.key}
+                style={[cellStyle, { flex: column.width ? 0 : 1 }]}
+                onPress={() => columnSortable && handleSort(column.key)}
+                disabled={!columnSortable}
+                activeOpacity={columnSortable ? 0.7 : 1}
+                testID={testID ? `${testID}-header-${column.key}` : undefined}
+              >
+                <Stack direction="row" align="center" gap={4}>
+                  <Text
+                    level="body"
+                    variant="muted"
+                    style={{ fontWeight: '600' }}
+                  >
+                    {column.title}
                   </Text>
-                )}
-              </Stack>
-            </TouchableOpacity>
-          ))}
+                  {columnSortable && sortColumn === column.key && (
+                    <Text level="caption" variant="muted">
+                      {sortDirection === 'asc' ? '↑' : '↓'}
+                    </Text>
+                  )}
+                </Stack>
+              </TouchableOpacity>
+            );
+          })}
         </View>
         {/* Rows */}
         <ScrollView testID={testID ? `${testID}-body` : undefined}>

@@ -19,6 +19,8 @@ import {
   type ViewStyle,
 } from 'react-native';
 
+import { formatDate, getAppTimeZone, useTranslation } from '@donotdev/core';
+
 import { mergeStyles } from '../../utils/helpers';
 import Button from '../Button';
 import Stack from '../Stack';
@@ -59,8 +61,13 @@ export interface CalendarProps {
   testID?: string;
 }
 
+/** Numeric date (the `toLocaleDateString()` layout), in the app's zone (`formatDate`). */
+const NUMERIC_DATE = { year: 'numeric', month: 'numeric', day: 'numeric' } as const;
+
 /**
- * Calendar date picker component.
+ * Calendar date picker component. The trigger shows the value in the UI language and the
+ * app's time zone (`formatDate`, `i18n.timeZone`), and the native picker reads and picks
+ * in that zone (`timeZoneName`), as the web DatePicker / DateTimePicker: not the device's.
  *
  * @component
  * @example
@@ -78,6 +85,7 @@ const Calendar = ({
   testID,
 }: CalendarProps) => {
   const [showPicker, setShowPicker] = useState(false);
+  const { language } = useTranslation();
 
   const handleChange = (
     _event: DateTimePickerEvent,
@@ -96,13 +104,14 @@ const Calendar = ({
         onPress={() => setShowPicker(true)}
         testID={testID ? `${testID}-trigger` : undefined}
       >
-        {value.toLocaleDateString()}
+        {formatDate(value, language, NUMERIC_DATE)}
       </Button>
       {showPicker && (
         <DateTimePicker
           value={value}
           mode={mode}
           display="default"
+          timeZoneName={getAppTimeZone()}
           minimumDate={minDate}
           maximumDate={maxDate}
           onChange={handleChange}

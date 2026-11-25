@@ -15,6 +15,7 @@ import { useTranslation, isFieldVisible } from '@donotdev/core';
 import type { AnyEntity } from '@donotdev/core';
 import { useCrudDoc } from '@donotdev/crud';
 
+import { CrudLoadError } from './CrudLoadError';
 import { DisplayFieldRenderer } from './DisplayFieldRenderer';
 import { Stack, Spinner, Text } from '../../atomic';
 import { useAuthSafe } from '../../utils/useAuthSafe';
@@ -57,6 +58,7 @@ export function EntityDisplayRenderer<
     loading,
     error: displayError,
     notFound,
+    refresh,
   } = useCrudDoc<T>(entity, id);
 
   const { t: tDual } = useTranslation([entity.namespace, 'crud']);
@@ -108,24 +110,24 @@ export function EntityDisplayRenderer<
   // CRUD unavailable (consent declined / feature absent): nothing will load
   if (!displayData && !displayError && !notFound) return null;
 
+  const entityLabel = tDual('name', { defaultValue: entity.name });
+
+  // Error or not found state: translated messages only (no raw error text, as the web)
   if (displayError || !displayData) {
     return (
       <Stack align="center" justify="center" style={style} testID={testID}>
-        <Stack gap={8}>
+        {displayError ? (
+          <CrudLoadError
+            error={displayError}
+            entity={entityLabel}
+            onRetry={refresh}
+          />
+        ) : (
           <Text level="h3" variant="muted">
             {notFoundMessage ||
-              tCrud('errors.notFound', {
-                entity: tDual('name', { defaultValue: entity.name }),
-              })}
+              tCrud('errors.notFound', { entity: entityLabel })}
           </Text>
-          {displayError && (
-            <Text level="body" variant="destructive">
-              {displayError instanceof Error
-                ? displayError.message
-                : String(displayError)}
-            </Text>
-          )}
-        </Stack>
+        )}
       </Stack>
     );
   }
