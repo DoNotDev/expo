@@ -42,7 +42,10 @@ export function useNavigate() {
     (to: string, options?: NavigateOptions) => {
       if (to === 'back') {
         closeAll();
-        router.back();
+        // Opened directly (deep link, notification): no screen to go back to, open the
+        // fallback instead (same contract as @donotdev/ui).
+        if (router.canGoBack()) router.back();
+        else router.replace(toHref(options?.fallback ?? '/'));
         return;
       }
 
@@ -59,11 +62,12 @@ export function useNavigate() {
 }
 
 /**
- * Go back hook
+ * Back navigation: the previous screen when there is one, otherwise `fallback` (default
+ * `'/'`), as `@donotdev/ui` `useBack`.
  */
-export function useBack() {
-  const router = useRouter();
-  return useCallback(() => router.back(), [router]);
+export function useBack(fallback: string = '/') {
+  const navigate = useNavigate();
+  return useCallback(() => navigate('back', { fallback }), [navigate, fallback]);
 }
 
 /**

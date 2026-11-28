@@ -4,6 +4,7 @@
 
 ### Minor Changes
 
+- `useBack(fallback = '/')` and `navigate('back', { fallback })`: back when `router.canGoBack()`, otherwise `router.replace(fallback)` (a screen opened by a deep link or a notification had nothing to go back to). Same contract as `@donotdev/ui`.
 - DataTable: 25 rows per page by default (was 10), like the web DataTable. EntityList / EntityCardList titles read the new natural crud wording ("Filters", "{{count}} results"). The web admin-grid layout (sticky header, editable cells as text, bottom selection bar, empty row, stacked phone rows) is web only.
 - DataTable sorts natively, with the web DataTable's sort (`sortTableRows`, copied from `@donotdev/components` into `src/utils/tableSort.ts`): `sortable` defaults to `true` (was `false`), every column with `dataIndex` or `render` sorts on header press on what its cells show, in the device language (case and accents ignored, numbers / dates / booleans and formatted numbers such as `1 234,50 €` by value, a reference or enum on its label, empty cells last); a column with nothing to sort over the data (all cells empty or the same, fewer than 2 rows) shows no arrow and its header press is inert. `sortable: false` on a column or `sortable={false}` on the table opt out. Was a `String` `<` / `>` on `row[key]`, and only on columns flagged `sortable: true` of a table flagged `sortable`. `EntityList` drops its now default `sortable: true` columns and sorts (its table never set `sortable`, so it did not).
 
